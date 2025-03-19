@@ -1,7 +1,7 @@
 package com.timmax.realestate.util;
 
 import com.timmax.realestate.model.RealEstate;
-import com.timmax.realestate.model.RealEstateWithSameAddress;
+import com.timmax.realestate.model.RealEstateDto;
 
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -18,16 +18,16 @@ public class RealEstateUtil {
                 new RealEstate(LocalDateTime.of(2025, Month.JANUARY, 1, 0, 0), "Address3", 50)
         );
 
-        List<RealEstateWithSameAddress> realEstateWithSameAddressesDto = filterByCycles(realEstates);
+        List<RealEstateDto> realEstateWithSameAddressesDto = filterByCycles(realEstates);
         realEstateWithSameAddressesDto.forEach(System.out::println);
 
         System.out.println();
 
-        List<RealEstateWithSameAddress> realEstateWithSameAddressesDto2 = filterByStreams(realEstates);
+        List<RealEstateDto> realEstateWithSameAddressesDto2 = filterByStreams(realEstates);
         realEstateWithSameAddressesDto2.forEach(System.out::println);
     }
 
-    public static List<RealEstateWithSameAddress> filterByCycles(List<RealEstate> realEstates) {
+    public static List<RealEstateDto> filterByCycles(List<RealEstate> realEstates) {
         // Done: return filtered list with sameAddress. Implement by cycles
         final Map<String, Integer> address_count_Map = new HashMap<>();
         realEstates.forEach(
@@ -38,7 +38,7 @@ public class RealEstateUtil {
                 )
         );
 
-        List<RealEstateWithSameAddress> result = new ArrayList<>();
+        List<RealEstateDto> result = new ArrayList<>();
         for (RealEstate realEstate : realEstates) {
             result.add(
                     createTo(
@@ -50,7 +50,7 @@ public class RealEstateUtil {
         return result;
     }
 
-    public static List<RealEstateWithSameAddress> filterByStreams(List<RealEstate> realEstates) {
+    public static List<RealEstateDto> filterByStreams(List<RealEstate> realEstates) {
         // Done: Implement by streams
         final Map<String, Long> address_count_Map = realEstates.stream()
                 .collect(
@@ -63,11 +63,11 @@ public class RealEstateUtil {
                 ;
     }
 
-    private static RealEstateWithSameAddress createTo(
+    private static RealEstateDto createTo(
             RealEstate realEstate,
             boolean sameAddress
     ) {
-        return new RealEstateWithSameAddress(
+        return new RealEstateDto(
                 realEstate.getDateTime(),
                 realEstate.getAddress(),
                 realEstate.getSquare(),

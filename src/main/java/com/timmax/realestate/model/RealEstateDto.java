@@ -2,14 +2,14 @@ package com.timmax.realestate.model;
 
 import java.time.LocalDateTime;
 
-public class RealEstateWithSameAddress {
+public class RealEstateDto {
     private final LocalDateTime dateTime;
     private final String address;
     private final int square;
 
     private final boolean sameAddress;
 
-    public RealEstateWithSameAddress(LocalDateTime dateTime, String address, int square, boolean sameAddress) {
+    public RealEstateDto(LocalDateTime dateTime, String address, int square, boolean sameAddress) {
         this.dateTime = dateTime;
         this.address = address;
         this.square = square;
@@ -18,7 +18,7 @@ public class RealEstateWithSameAddress {
 
     @Override
     public String toString() {
-        return "RealEstateWithSameAddress{" +
+        return "RealEstateDto{" +
                 "dateTime=" + dateTime +
                 ", address='" + address + '\'' +
                 ", square=" + square +
