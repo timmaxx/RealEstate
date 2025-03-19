@@ -6,6 +6,7 @@ import com.timmax.realestate.model.UserRealEstateWithSameAddress;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class UserRealEstateUtil {
     public static void main(String[] args) {
@@ -19,6 +20,11 @@ public class UserRealEstateUtil {
 
         List<UserRealEstateWithSameAddress> userRealEstateWithSameAddressesDto = filterByCycles(userRealEstates);
         userRealEstateWithSameAddressesDto.forEach(System.out::println);
+
+        System.out.println();
+
+        List<UserRealEstateWithSameAddress> userRealEstateWithSameAddressesDto2 = filterByStreams(userRealEstates);
+        userRealEstateWithSameAddressesDto2.forEach(System.out::println);
     }
 
     public static List<UserRealEstateWithSameAddress> filterByCycles(List<UserRealEstate> userRealEstates) {
@@ -45,8 +51,16 @@ public class UserRealEstateUtil {
     }
 
     public static List<UserRealEstateWithSameAddress> filterByStreams(List<UserRealEstate> userRealEstates) {
-        // TODO Implement by streams
-        return null;
+        // Done: Implement by streams
+        final Map<String, Long> address_count_Map = userRealEstates.stream()
+                .collect(
+                        Collectors.groupingBy(UserRealEstate::getAddress, Collectors.counting())
+                );
+
+        return userRealEstates.stream()
+                .map(userRealEstate -> createTo(userRealEstate, address_count_Map.get(userRealEstate.getAddress()).intValue() > 1))
+                .collect(Collectors.toList())
+                ;
     }
 
     private static UserRealEstateWithSameAddress createTo(
