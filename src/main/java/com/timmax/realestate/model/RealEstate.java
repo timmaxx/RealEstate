@@ -1,6 +1,8 @@
 package com.timmax.realestate.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class RealEstate {
     private final LocalDateTime dateTime;
@@ -23,5 +25,13 @@ public class RealEstate {
 
     public int getSquare() {
         return square;
+    }
+
+    public LocalDate getDate() {
+        return dateTime.toLocalDate();
+    }
+
+    public LocalTime getTime() {
+        return dateTime.toLocalTime();
     }
 }
