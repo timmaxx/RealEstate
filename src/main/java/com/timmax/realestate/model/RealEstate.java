@@ -2,12 +2,12 @@ package com.timmax.realestate.model;
 
 import java.time.LocalDateTime;
 
-public class UserRealEstate {
+public class RealEstate {
     private final LocalDateTime dateTime;
     private final String address;
     private final int square;
 
-    public UserRealEstate(LocalDateTime dateTime, String address, int square) {
+    public RealEstate(LocalDateTime dateTime, String address, int square) {
         this.dateTime = dateTime;
         this.address = address;
         this.square = square;
