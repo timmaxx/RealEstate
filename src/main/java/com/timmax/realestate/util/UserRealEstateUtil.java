@@ -5,8 +5,7 @@ import com.timmax.realestate.model.UserRealEstateWithSameAddress;
 
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class UserRealEstateUtil {
     public static void main(String[] args) {
@@ -23,12 +22,41 @@ public class UserRealEstateUtil {
     }
 
     public static List<UserRealEstateWithSameAddress> filterByCycles(List<UserRealEstate> userRealEstates) {
-        // TODO return filtered list with sameAddress. Implement by cycles
-        return null;
+        // Done: return filtered list with sameAddress. Implement by cycles
+        final Map<String, Integer> address_count_Map = new HashMap<>();
+        userRealEstates.forEach(
+                userRealEstate -> address_count_Map.merge(
+                        userRealEstate.getAddress(),
+                        1,
+                        Integer::sum
+                )
+        );
+
+        List<UserRealEstateWithSameAddress> result = new ArrayList<>();
+        for (UserRealEstate userRealEstate : userRealEstates) {
+            result.add(
+                    createTo(
+                            userRealEstate,
+                            address_count_Map.get(userRealEstate.getAddress()) > 1
+                    )
+            );
+        }
+        return result;
     }
 
     public static List<UserRealEstateWithSameAddress> filterByStreams(List<UserRealEstate> userRealEstates) {
         // TODO Implement by streams
         return null;
+    }
+
+    private static UserRealEstateWithSameAddress createTo(
+            UserRealEstate userRealEstate,
+            boolean sameAddress
+    ) {
+        return new UserRealEstateWithSameAddress(
+                userRealEstate.getDateTime(),
+                userRealEstate.getAddress(),
+                userRealEstate.getSquare(),
+                sameAddress);
     }
 }
