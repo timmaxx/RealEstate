@@ -1,0 +1,49 @@
+Настройка IDEA для запуска Tomcat и приложения в нём
+
+File - Project Settings
+
+ Modules
+  +
+  Web
+   Name:
+    Web
+   Deployment Descriptors
+    Web Module Deployment Descriptor
+     D:\japps\JavaOPs\RealEstate\src\main\webapp\WEB-INF\web.xml
+   Web Resource Directory
+    Web Resource Directory
+     Web Resource Directory path
+      D:\japps\JavaOPs\RealEstate\src\main\webapp
+     Path Relative to Deployment Root
+      /
+
+ Artifacts
+  +
+  Web Application: Exploded
+   Name:
+    RealEstate:Web exploded
+   Type:
+    Web Application: Exploded
+   Output directory:
+    D:\japps\JavaOPs\RealEstate\target\RealEstate
+
+
+Run - Edit configuration
+  +
+  Tomcat server - Local
+   Server
+    Open browser
+     URL
+      http://localhost:8080/RealEstate/
+     On 'Update' action
+      Restart server
+   Deployment
+    Deploy at the server startup
+     +
+     RealEstate:Web exploded
+    Application context
+     /RealEstate
+   Before launch
+    Build 'RealEstate:Web exploded' artifact
+     Select artifact
+      RealEstate:Web exploded
