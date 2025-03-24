@@ -5,4 +5,17 @@
          version="4.0">
 
     <display-name>RealEstate</display-name>
+
+    <!--
+    В web.xml добавляем маппинг: запрос браузера RealEstate/users Тоmcat направит на сервлет UserServlet.
+    -->
+    <servlet>
+        <servlet-name>userServlet</servlet-name>
+        <servlet-class>com.timmax.realestate.web.UserServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>userServlet</servlet-name>
+        <url-pattern>/users</url-pattern>
+    </servlet-mapping>
 </web-app>

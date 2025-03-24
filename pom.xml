@@ -36,4 +36,19 @@
             </plugin>
         </plugins>
     </build>
+
+    <dependencies>
+        <!--Web-->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>4.0.1</version>
+            <!--
+            https://java-online.ru/maven-faq.xhtml#scope
+            Scope provided означает, что зависимость используется при компиляции, но не пакуется в WAR (можете проверить).
+            Эти классы уже есть в Tomcat и в WAR они будут мешать его правильной работе.
+            -->
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 </project>
