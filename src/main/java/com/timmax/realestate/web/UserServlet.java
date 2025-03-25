@@ -20,5 +20,12 @@ public class UserServlet extends HttpServlet {
 
         log.debug("redirect to users");
         response.sendRedirect("users.jsp");
+        //  Вывод по умолчанию будет:
+        //  14:33:00.892 [http-nio-8080-exec-4] DEBUG com.timmax.realestate.web.UserServlet -- redirect to users
+        //  Время
+        //  Поток
+        //  Уровень логирования
+        //  Класс
+        //  Сообщение
     }
 }
