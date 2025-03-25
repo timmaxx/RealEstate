@@ -16,6 +16,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!-- Logging -->
         <logback.version>1.2.13</logback.version>
+        <slf4j.version>1.7.36</slf4j.version>
     </properties>
 
     <build>
@@ -40,6 +41,22 @@
     </build>
 
     <dependencies>
+        <!-- Logging with SLF4J & LogBack -->
+        <dependency>
+            <!--
+            Этой зависимости в предыдущем коммите не было, т.к. она транзитивно подтягивалась,
+            но с версией 1.7.32.
+            -->
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <!--
+            Теперь указываем более позднюю версию 1.7.36 и теперь именно она будет использована.
+            Если же нужно как-то не во всех модулях использовать только позднюю версию,
+            то такой вариант рассмотрен в курсе MasterJava - там будет про специальный плагин в Мавен,
+            который запрещает автоматически разрешать эти конфликты.
+            -->
+            <version>${slf4j.version}</version>
+        </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
@@ -50,6 +67,7 @@
             Мавен сам подтянет эти зависимости.
             -->
             <version>${logback.version}</version>
+            <scope>runtime</scope>
         </dependency>
         <!--Web-->
         <dependency>
