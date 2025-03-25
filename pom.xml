@@ -15,8 +15,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!-- Logging -->
-        <!--<logback.version>1.2.13</logback.version>-->
-        <logback.version>1.5.18</logback.version>
+        <logback.version>1.2.13</logback.version>
     </properties>
 
     <build>
@@ -44,6 +43,12 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
+            <!--
+            logback-classic 1.2.13 зависит от:
+            - slf4j-api 1.7.32
+            - logback-core 1.2.13
+            Мавен сам подтянет эти зависимости.
+            -->
             <version>${logback.version}</version>
         </dependency>
         <!--Web-->

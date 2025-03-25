@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Если приложение совсем не может запуститься, то можно посмотреть логи Томката.
+При запуске ищем CATALINA_BASE.
+Using CATALINA_BASE:   "C:\Users\Maksim\AppData\Local\JetBrains\IntelliJIdea2022.2\tomcat\0752d174-3d40-4476-a6b2-2fd73c9d5523"
+А уже там будет подкаталог logs.
+-->
+
+<!--
+Формат логирования и файл, куда логируется, можно конфигурировать.
+Для этого нужно создать файл logback.xml в каталоге src/main/resources
+Мавен, при подготовке ресурсов, по умолчанию, все файлы из этого каталога кладёт в classpath.
+И при упаковке (mvn package) смотрим:
+В каталоге target появляется war-файл. В нём в WEB-INF в classes видим файл logback.xml
+-->
+<configuration scan="true" scanPeriod="30 seconds">
+
+    <!-- To enable JMX Management -->
+    <jmxConfigurator/>
+
+    <!-- Указываем аппендер для вывода в файл -->
+    <appender name="file" class="ch.qos.logback.core.FileAppender">
+        <!--
+        Для пути к файлу использована переменная окружения REALESTATE_ROOT
+        Для разных ОС её можно задавать по разному.
+        Для Windows есть переменные среды пользователя и системные переменные.
+        В Unix через экспорт.
+        Также эту переменную можно задавать и в IDEA - для запуска и для дебага (причём разные можно задавать):
+        Run - Edit configuration - Tomcat Server - Tomcat 9.0.68 - Startup/Connection - Environment variables
+        -->
+        <!-- Также эта переменная будет использована для локализации -->
+        <file>${REALESTATE_ROOT}/log/RealEstate.log</file>
+
+        <encoder>
+            <charset>UTF-8</charset>
+            <!-- У аппендеров может быть разный формат вывода сообщений -->
+            <!-- Здесь дату будем писать -->
+            <pattern>%date %-5level %logger{0} [%file:%line] %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Указываем аппендер для вывода в консоль -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <charset>UTF-8</charset>
+            <!-- Здесь обойдёмся без даты -->
+            <pattern>%-5level %logger{0} [%file:%line] %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Здесь указываем пакеты (и/или классы) с каким уровнем логирования попадут в лог -->
+    <!--
+    Здесь это значит, что все классы указанного пакета и его подпакетов будут попадать в лог
+    с уровнем логирования debug и выше будут попадать. А, например, с уровнем trace, в лог не попадут.
+    -->
+    <logger name="com.timmax.realestate" level="debug"/>
+
+    <root level="info">
+        <appender-ref ref="file"/>
+        <appender-ref ref="console"/>
+    </root>
+</configuration>

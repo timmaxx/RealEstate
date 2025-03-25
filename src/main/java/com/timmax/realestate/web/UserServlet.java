@@ -18,9 +18,17 @@ public class UserServlet extends HttpServlet {
             throws IOException {
         //  request.getRequestDispatcher("/users.jsp").forward(request, response);
 
+        //  В файле logback.xml указан уровень логирования debug.
+        //  <logger name="com.timmax.realestate" level="debug"/>
+
+        //  Следовательно вывод log.debug() - будет в логах.
         log.debug("redirect to users");
+
+        //  А вывод log.trace() - не будет.
+        log.trace("(trace level) redirect to users");
+
         response.sendRedirect("users.jsp");
-        //  Вывод по умолчанию будет:
+        //  Формат вывода по умолчанию будет:
         //  14:33:00.892 [http-nio-8080-exec-4] DEBUG com.timmax.realestate.web.UserServlet -- redirect to users
         //  Время
         //  Поток
