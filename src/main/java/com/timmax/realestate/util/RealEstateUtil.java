@@ -3,19 +3,17 @@ package com.timmax.realestate.util;
 import com.timmax.realestate.model.RealEstate;
 import com.timmax.realestate.model.RealEstateDto;
 
-import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class RealEstateUtil {
     public static void main(String[] args) {
         List<RealEstate> realEstates = Arrays.asList(
-                new RealEstate(LocalDateTime.of(2025, Month.JANUARY, 1, 0, 0), "Address1", 50),
-                new RealEstate(LocalDateTime.of(2025, Month.JANUARY, 1, 0, 0), "Address1", 50),
-                new RealEstate(LocalDateTime.of(2025, Month.JANUARY, 1, 0, 0), "Address1", 50),
-                new RealEstate(LocalDateTime.of(2025, Month.JANUARY, 1, 0, 0), "Address2", 50),
-                new RealEstate(LocalDateTime.of(2025, Month.JANUARY, 1, 0, 0), "Address3", 50)
+                new RealEstate("Address1", 50),
+                new RealEstate("Address2", 50),
+                new RealEstate("Address3", 50),
+                new RealEstate("Address4", 50),
+                new RealEstate("Address5", 50)
         );
 
         List<RealEstateDto> realEstateWithSameAddressesDto = filterByCycles(realEstates);
@@ -28,49 +26,24 @@ public class RealEstateUtil {
     }
 
     public static List<RealEstateDto> filterByCycles(List<RealEstate> realEstates) {
-        // Done: return filtered list with sameAddress. Implement by cycles
-        final Map<String, Integer> address_count_Map = new HashMap<>();
-        realEstates.forEach(
-                realEstate -> address_count_Map.merge(
-                        realEstate.getAddress(),
-                        1,
-                        Integer::sum
-                )
-        );
-
+        //  Done:   Implement by cycles
         List<RealEstateDto> result = new ArrayList<>();
         for (RealEstate realEstate : realEstates) {
-            result.add(
-                    createTo(
-                            realEstate,
-                            address_count_Map.get(realEstate.getAddress()) > 1
-                    )
-            );
+            result.add(createDto(realEstate));
         }
         return result;
     }
 
     public static List<RealEstateDto> filterByStreams(List<RealEstate> realEstates) {
-        // Done: Implement by streams
-        final Map<String, Long> address_count_Map = realEstates.stream()
-                .collect(
-                        Collectors.groupingBy(RealEstate::getAddress, Collectors.counting())
-                );
-
+        //  Done:   Implement by streams
         return realEstates.stream()
-                .map(realEstate -> createTo(realEstate, address_count_Map.get(realEstate.getAddress()).intValue() > 1))
+                // .map(realEstate -> createDto(realEstate))
+                .map(RealEstateUtil::createDto)
                 .collect(Collectors.toList())
                 ;
     }
 
-    private static RealEstateDto createTo(
-            RealEstate realEstate,
-            boolean sameAddress
-    ) {
-        return new RealEstateDto(
-                realEstate.getDateTime(),
-                realEstate.getAddress(),
-                realEstate.getSquare(),
-                sameAddress);
+    private static RealEstateDto createDto(RealEstate realEstate) {
+        return new RealEstateDto(realEstate.getAddress(), realEstate.getSquare());
     }
 }
