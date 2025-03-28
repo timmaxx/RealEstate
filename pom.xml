@@ -43,43 +43,30 @@
     <dependencies>
         <!-- Logging with SLF4J & LogBack -->
         <dependency>
-            <!--
-            Этой зависимости в предыдущем коммите не было, т.к. она транзитивно подтягивалась,
-            но с версией 1.7.32.
-            -->
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <!--
-            Теперь указываем более позднюю версию 1.7.36 и теперь именно она будет использована.
-            Если же нужно как-то не во всех модулях использовать только позднюю версию,
-            то такой вариант рассмотрен в курсе MasterJava - там будет про специальный плагин в Мавен,
-            который запрещает автоматически разрешать эти конфликты.
-            -->
             <version>${slf4j.version}</version>
         </dependency>
+
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <!--
-            logback-classic 1.2.13 зависит от:
-            - slf4j-api 1.7.32
-            - logback-core 1.2.13
-            Мавен сам подтянет эти зависимости.
-            -->
             <version>${logback.version}</version>
             <scope>runtime</scope>
         </dependency>
+
         <!--Web-->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>4.0.1</version>
-            <!--
-            https://java-online.ru/maven-faq.xhtml#scope
-            Scope provided означает, что зависимость используется при компиляции, но не пакуется в WAR (можете проверить).
-            Эти классы уже есть в Tomcat и в WAR они будут мешать его правильной работе.
-            -->
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
         </dependency>
     </dependencies>
 </project>

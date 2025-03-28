@@ -9,6 +9,14 @@ public class RealEstateDto {
         this.square = square;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public float getSquare() {
+        return square;
+    }
+
     @Override
     public String toString() {
         return "RealEstateDto{" +
