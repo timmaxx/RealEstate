@@ -16,15 +16,15 @@ public class RealEstateUtil {
             new RealEstate("Address5", 50)
     );
 
-    public static List<RealEstateDto> getDtos(List<RealEstate> realEstates) {
+    public static List<RealEstateDto> getDtos(Collection<RealEstate> realEstates) {
         return filterByPredicate(realEstates, realEstate -> true);
     }
 /*
-    public static List<RealEstateDto> getFilteredDtos(List<RealEstate> realEstates, LocalTime startTime, LocalTime endTime) {
+    public static List<RealEstateDto> getFilteredDtos(Collection<RealEstate> realEstates, LocalTime startTime, LocalTime endTime) {
         return filterByPredicate(realEstates, realEstate -> DateTimeUtil.isBetweenHalfOpen(realEstate.getTime(), startTime, endTime));
     }
 */
-    private static List<RealEstateDto> filterByPredicate(List<RealEstate> realEstates, Predicate<RealEstate> filter) {
+    private static List<RealEstateDto> filterByPredicate(Collection<RealEstate> realEstates, Predicate<RealEstate> filter) {
         return realEstates.stream()
                 .filter(filter)
                 //  .map(realEstate -> createDto(realEstate))
@@ -33,6 +33,6 @@ public class RealEstateUtil {
     }
 
     private static RealEstateDto createDto(RealEstate realEstate) {
-        return new RealEstateDto(realEstate.getAddress(), realEstate.getSquare());
+        return new RealEstateDto(realEstate.getId(), realEstate.getAddress(), realEstate.getSquare());
     }
 }

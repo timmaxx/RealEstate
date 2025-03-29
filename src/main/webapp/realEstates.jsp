@@ -14,11 +14,15 @@
     <h3><a href="index.html">Home</a></h3>
     <hr/>
     <h2>Real estates</h2>
+    <a href="realEstates?action=create">Add Real estate</a>
+    <br><br>
     <table border="1" cellpadding="8" cellspacing="0">
         <thead>
         <tr>
             <th>Address</th>
             <th>Square</th>
+            <th></th>
+            <th></th>
         </tr>
         </thead>
         <c:forEach items="${requestScope.realEstates}" var="realEstate">
@@ -26,6 +30,8 @@
             <tr>
                 <td>${realEstate.address}</td>
                 <td>${realEstate.square}</td>
+                <td><a href="realEstates?action=update&id=${realEstate.id}">Update</a></td>
+                <td><a href="realEstates?action=delete&id=${realEstate.id}">Delete</a></td>
             </tr>
         </c:forEach>
     </table>

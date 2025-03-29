@@ -1,12 +1,26 @@
 package com.timmax.realestate.model;
 
 public class RealEstate {
+    private Integer id;
     private final String address;
     private final float square;
 
     public RealEstate(String address, float square) {
+        this(null, address, square);
+    }
+
+    public RealEstate(Integer id, String address, float square) {
+        this.id = id;
         this.address = address;
         this.square = square;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getAddress() {
@@ -15,5 +29,18 @@ public class RealEstate {
 
     public float getSquare() {
         return square;
+    }
+
+    public boolean isNew() {
+        return id == null;
+    }
+
+    @Override
+    public String toString() {
+        return "RealEstate{" +
+                "id=" + id +
+                ", address='" + address + '\'' +
+                ", square=" + square +
+                '}';
     }
 }
