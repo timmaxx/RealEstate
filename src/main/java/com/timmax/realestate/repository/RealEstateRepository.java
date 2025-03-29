@@ -4,15 +4,17 @@ import com.timmax.realestate.model.RealEstate;
 
 import java.util.Collection;
 
+// TODO add userId
 public interface RealEstateRepository {
-    // null if not found, when updated
-    RealEstate save(RealEstate meal);
+    // null if updated realEstate does not belong to userId
+    RealEstate save(RealEstate realEstate);
 
-    // false if not found
+    // false if realEstate does not belong to userId
     boolean delete(int id);
 
-    // null if not found
+    // null if realEstate does not belong to userId
     RealEstate get(int id);
 
+    // ORDERED address asc
     Collection<RealEstate> getAll();
 }
