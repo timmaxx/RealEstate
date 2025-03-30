@@ -1,10 +1,15 @@
 package com.timmax.realestate.web.user;
 
+import com.timmax.realestate.service.UserService;
 import com.timmax.realestate.model.User;
 
 import java.util.List;
 
 public class AdminRestController extends AbstractUserController {
+    public AdminRestController(UserService service) {
+        super(service);
+    }
+
     @Override
     public List<User> getAll() {
         return super.getAll();

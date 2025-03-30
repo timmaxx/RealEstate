@@ -2,7 +2,6 @@ package com.timmax.realestate.service;
 
 import com.timmax.realestate.model.User;
 import com.timmax.realestate.repository.UserRepository;
-import com.timmax.realestate.repository.inmemory.InMemoryUserRepository;
 
 import java.util.List;
 
@@ -12,7 +11,7 @@ import static com.timmax.realestate.util.ValidationUtil.checkNotFoundWithId;
 public class UserService {
     private final UserRepository repository;
 
-    public UserService(InMemoryUserRepository repository) {
+    public UserService(UserRepository repository) {
         this.repository = repository;
     }
 
