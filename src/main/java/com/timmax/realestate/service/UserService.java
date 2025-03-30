@@ -1,5 +1,6 @@
 package com.timmax.realestate.service;
 
+import org.springframework.stereotype.Service;
 import com.timmax.realestate.model.User;
 import com.timmax.realestate.repository.UserRepository;
 
@@ -8,6 +9,7 @@ import java.util.List;
 import static com.timmax.realestate.util.ValidationUtil.checkNotFound;
 import static com.timmax.realestate.util.ValidationUtil.checkNotFoundWithId;
 
+@Service
 public class UserService {
     private final UserRepository repository;
 

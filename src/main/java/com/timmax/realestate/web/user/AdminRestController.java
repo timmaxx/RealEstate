@@ -1,14 +1,12 @@
 package com.timmax.realestate.web.user;
 
-import com.timmax.realestate.service.UserService;
+import org.springframework.stereotype.Controller;
 import com.timmax.realestate.model.User;
 
 import java.util.List;
 
+@Controller
 public class AdminRestController extends AbstractUserController {
-    public AdminRestController(UserService service) {
-        super(service);
-    }
 
     @Override
     public List<User> getAll() {

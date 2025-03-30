@@ -2,6 +2,7 @@ package com.timmax.realestate.web.user;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import com.timmax.realestate.model.User;
 import com.timmax.realestate.service.UserService;
 
@@ -13,11 +14,8 @@ import static com.timmax.realestate.util.ValidationUtil.checkNew;
 public abstract class AbstractUserController {
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
-    private final UserService service;
-
-    public AbstractUserController(UserService service) {
-        this.service = service;
-    }
+    @Autowired
+    private UserService service;
 
     public List<User> getAll() {
         log.info("getAll");
