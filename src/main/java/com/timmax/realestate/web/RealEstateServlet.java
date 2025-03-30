@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.timmax.realestate.model.RealEstate;
-import com.timmax.realestate.repository.InMemoryRealEstateRepository;
+import com.timmax.realestate.repository.inmemory.InMemoryRealEstateRepository;
 import com.timmax.realestate.repository.RealEstateRepository;
 import com.timmax.realestate.util.RealEstateUtil;
 

@@ -1,6 +1,7 @@
-package com.timmax.realestate.repository;
+package com.timmax.realestate.repository.inmemory;
 
 import com.timmax.realestate.model.RealEstate;
+import com.timmax.realestate.repository.RealEstateRepository;
 import com.timmax.realestate.util.RealEstateUtil;
 
 import java.util.Collection;
