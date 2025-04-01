@@ -1,7 +1,38 @@
 package com.timmax.realestate.service;
 
+import org.springframework.stereotype.Service;
+import com.timmax.realestate.model.RealEstate;
 import com.timmax.realestate.repository.RealEstateRepository;
 
+import java.util.List;
+
+import static com.timmax.realestate.util.ValidationUtil.checkNotFound;
+
+@Service
 public class RealEstateService {
-    private RealEstateRepository repository;
+    private final RealEstateRepository repository;
+
+    public RealEstateService(RealEstateRepository repository) {
+        this.repository = repository;
+    }
+
+    public RealEstate get(int id, int userId) {
+        return checkNotFound(repository.get(id, userId), id);
+    }
+
+    public void delete(int id, int userId) {
+        checkNotFound(repository.delete(id, userId), id);
+    }
+
+    public List<RealEstate> getAll(int userId) {
+        return repository.getAll(userId);
+    }
+
+    public void update(RealEstate realEstate, int userId) {
+        checkNotFound(repository.save(realEstate, userId), realEstate.getId());
+    }
+
+    public RealEstate create(RealEstate realEstate, int userId) {
+        return repository.save(realEstate, userId);
+    }
 }
