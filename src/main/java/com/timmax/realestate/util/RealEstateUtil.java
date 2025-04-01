@@ -1,7 +1,7 @@
 package com.timmax.realestate.util;
 
 import com.timmax.realestate.model.RealEstate;
-import com.timmax.realestate.model.RealEstateDto;
+import com.timmax.realestate.dto.RealEstateDto;
 
 import java.util.*;
 import java.util.function.Predicate;

@@ -26,7 +26,7 @@
         </tr>
         </thead>
         <c:forEach items="${requestScope.realEstates}" var="realEstate">
-            <jsp:useBean id="realEstate" type="com.timmax.realestate.model.RealEstateDto"/>
+            <jsp:useBean id="realEstate" type="com.timmax.realestate.dto.RealEstateDto"/>
             <tr>
                 <td>${realEstate.address}</td>
                 <td>${realEstate.square}</td>

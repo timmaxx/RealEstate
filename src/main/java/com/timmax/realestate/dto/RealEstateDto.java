@@ -1,4 +1,4 @@
-package com.timmax.realestate.model;
+package com.timmax.realestate.dto;
 
 public class RealEstateDto {
     private final Integer id;
