@@ -15,12 +15,12 @@ import static com.timmax.realestate.util.ValidationUtil.assureIdConsistent;
 import static com.timmax.realestate.util.ValidationUtil.checkIsNew;
 
 @Controller
-public class RealEstateController {
-    private static final Logger log = LoggerFactory.getLogger(RealEstateController.class);
+public class RealEstateRestController {
+    private static final Logger log = LoggerFactory.getLogger(RealEstateRestController.class);
 
     private final RealEstateService service;
 
-    public RealEstateController(RealEstateService service) {
+    public RealEstateRestController(RealEstateService service) {
         this.service = service;
     }
 
