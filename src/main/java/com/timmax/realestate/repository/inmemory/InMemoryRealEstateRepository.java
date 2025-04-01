@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static com.timmax.realestate.repository.inmemory.InMemoryUserRepository.ADMIN_ID;
@@ -56,9 +57,14 @@ public class InMemoryRealEstateRepository implements RealEstateRepository {
 
     @Override
     public List<RealEstate> getAll(int userId) {
+        return filterByPredicate(userId, realEstate -> true);
+    }
+
+    private List<RealEstate> filterByPredicate(int userId, Predicate<RealEstate> filter) {
         Map<Integer, RealEstate> realEstates = userRealEstatesMap.get(userId);
         return CollectionUtils.isEmpty(realEstates) ? Collections.emptyList() :
                 realEstates.values().stream()
+                        .filter(filter)
                         .sorted(Comparator.comparing(RealEstate::getAddress))
                         .collect(Collectors.toList());
     }
