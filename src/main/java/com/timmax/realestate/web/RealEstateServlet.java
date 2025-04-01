@@ -1,12 +1,10 @@
 package com.timmax.realestate.web;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.util.StringUtils;
 import com.timmax.realestate.model.RealEstate;
-import com.timmax.realestate.repository.inmemory.InMemoryRealEstateRepository;
-import com.timmax.realestate.repository.RealEstateRepository;
-import com.timmax.realestate.util.RealEstateUtil;
+import com.timmax.realestate.web.realEstate.RealEstateRestController;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,28 +14,35 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class RealEstateServlet extends HttpServlet {
-    private static final Logger log = LoggerFactory.getLogger(RealEstateServlet.class);
 
-    private RealEstateRepository repository;
+    private ConfigurableApplicationContext springContext;
+    private RealEstateRestController realEstateController;
 
     @Override
     public void init() {
-        repository = new InMemoryRealEstateRepository();
+        springContext = new ClassPathXmlApplicationContext("spring/spring-app.xml");
+        realEstateController = springContext.getBean(RealEstateRestController.class);
+    }
+
+    @Override
+    public void destroy() {
+        springContext.close();
+        super.destroy();
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         request.setCharacterEncoding("UTF-8");
-        String id = request.getParameter("id");
-
         RealEstate realEstate = new RealEstate(
-                id.isEmpty() ? null : Integer.valueOf(id),
                 request.getParameter("address"),
                 Float.parseFloat(request.getParameter("square"))
         );
 
-        log.info(realEstate.isNew() ? "Create {}" : "Update {}", realEstate);
-        repository.save(realEstate, SecurityUtil.authUserId());
+        if (StringUtils.hasLength(request.getParameter("id"))) {
+            realEstateController.update(realEstate, getId(request));
+        } else {
+            realEstateController.create(realEstate);
+        }
         response.sendRedirect("realEstates");
     }
 
@@ -48,8 +53,7 @@ public class RealEstateServlet extends HttpServlet {
         switch (action == null ? "all" : action) {
             case "delete":
                 int id = getId(request);
-                log.info("Delete id={}", id);
-                repository.delete(id, SecurityUtil.authUserId());
+                realEstateController.delete(id);
                 response.sendRedirect("realEstates");
                 break;
             case "create":
@@ -57,16 +61,15 @@ public class RealEstateServlet extends HttpServlet {
                 final RealEstate realEstate =
                         "create".equals(action) ?
                                 new RealEstate("", 1) :
-                                repository.get(getId(request), SecurityUtil.authUserId());
+                                realEstateController.get(getId(request));
                 request.setAttribute("realEstate", realEstate);
                 request.getRequestDispatcher("/realEstateForm.jsp").forward(request, response);
                 break;
             case "all":
             default:
-                log.info("getAll");
                 request.setAttribute(
                         "realEstates",
-                        RealEstateUtil.getDtos(repository.getAll(SecurityUtil.authUserId()))
+                        realEstateController.getAll()
                 );
                 request.getRequestDispatcher("/realEstates.jsp").forward(request, response);
                 break;
