@@ -1,6 +1,6 @@
 package com.timmax.realestate.model;
 
-public class RealEstate {
+public class RealEstate extends AbstractBaseEntity {
     private Integer id;
     private final String address;
     private final float square;
@@ -10,7 +10,7 @@ public class RealEstate {
     }
 
     public RealEstate(Integer id, String address, float square) {
-        this.id = id;
+        super(id);
         this.address = address;
         this.square = square;
     }
@@ -29,10 +29,6 @@ public class RealEstate {
 
     public float getSquare() {
         return square;
-    }
-
-    public boolean isNew() {
-        return id == null;
     }
 
     @Override
