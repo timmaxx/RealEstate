@@ -26,13 +26,13 @@ public class RealEstateRestController {
 
     public RealEstate get(int id) {
         int userId = SecurityUtil.authUserId();
-        log.info("get meal {} for user {}", id, userId);
+        log.info("get real estate {} for user {}", id, userId);
         return service.get(id, userId);
     }
 
     public void delete(int id) {
         int userId = SecurityUtil.authUserId();
-        log.info("delete meal {} for user {}", id, userId);
+        log.info("delete real estate {} for user {}", id, userId);
         service.delete(id, userId);
     }
 

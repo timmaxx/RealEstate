@@ -22,7 +22,7 @@ public class SpringMain {
             System.out.println();
 
             RealEstateRestController realEstateController = appCtx.getBean(RealEstateRestController.class);
-            List<RealEstateDto> filteredMealsWithExcess =
+            List<RealEstateDto> filteredAllRealEstate =
 /*
                     realEstateController.getBetween(
                             LocalDate.of(2020, Month.JANUARY, 30), LocalTime.of(7, 0),
@@ -30,7 +30,7 @@ public class SpringMain {
                     );
 */
                     realEstateController.getAll();
-            filteredMealsWithExcess.forEach(System.out::println);
+            filteredAllRealEstate.forEach(System.out::println);
             System.out.println();
             // System.out.println(realEstateController.getBetween(null, null, null, null));
             System.out.println(realEstateController.getAll());
