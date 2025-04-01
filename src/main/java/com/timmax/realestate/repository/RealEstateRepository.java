@@ -2,19 +2,18 @@ package com.timmax.realestate.repository;
 
 import com.timmax.realestate.model.RealEstate;
 
-import java.util.Collection;
+import java.util.List;
 
-// TODO add userId
 public interface RealEstateRepository {
     // null if updated realEstate does not belong to userId
-    RealEstate save(RealEstate realEstate);
+    RealEstate save(RealEstate realEstate, int userId);
 
     // false if realEstate does not belong to userId
-    boolean delete(int id);
+    boolean delete(int id, int userId);
 
     // null if realEstate does not belong to userId
-    RealEstate get(int id);
+    RealEstate get(int id, int userId);
 
     // ORDERED address asc
-    Collection<RealEstate> getAll();
+    List<RealEstate> getAll(int userId);
 }

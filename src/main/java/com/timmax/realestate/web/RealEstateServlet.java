@@ -37,10 +37,9 @@ public class RealEstateServlet extends HttpServlet {
         );
 
         log.info(realEstate.isNew() ? "Create {}" : "Update {}", realEstate);
-        repository.save(realEstate);
+        repository.save(realEstate, SecurityUtil.authUserId());
         response.sendRedirect("realEstates");
     }
-
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -50,7 +49,7 @@ public class RealEstateServlet extends HttpServlet {
             case "delete":
                 int id = getId(request);
                 log.info("Delete id={}", id);
-                repository.delete(id);
+                repository.delete(id, SecurityUtil.authUserId());
                 response.sendRedirect("realEstates");
                 break;
             case "create":
@@ -58,7 +57,7 @@ public class RealEstateServlet extends HttpServlet {
                 final RealEstate realEstate =
                         "create".equals(action) ?
                                 new RealEstate("", 1) :
-                                repository.get(getId(request));
+                                repository.get(getId(request), SecurityUtil.authUserId());
                 request.setAttribute("realEstate", realEstate);
                 request.getRequestDispatcher("/realEstateForm.jsp").forward(request, response);
                 break;
@@ -67,7 +66,7 @@ public class RealEstateServlet extends HttpServlet {
                 log.info("getAll");
                 request.setAttribute(
                         "realEstates",
-                        RealEstateUtil.getDtos(repository.getAll())
+                        RealEstateUtil.getDtos(repository.getAll(SecurityUtil.authUserId()))
                 );
                 request.getRequestDispatcher("/realEstates.jsp").forward(request, response);
                 break;
