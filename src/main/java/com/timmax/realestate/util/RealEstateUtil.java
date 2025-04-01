@@ -21,7 +21,7 @@ public class RealEstateUtil {
     }
 /*
     public static List<RealEstateDto> getFilteredDtos(Collection<RealEstate> realEstates, LocalTime startTime, LocalTime endTime) {
-        return filterByPredicate(realEstates, realEstate -> DateTimeUtil.isBetweenHalfOpen(realEstate.getTime(), startTime, endTime));
+        return filterByPredicate(realEstates, realEstate -> Util.isBetweenHalfOpen(realEstate.getTime(), startTime, endTime));
     }
 */
     private static List<RealEstateDto> filterByPredicate(Collection<RealEstate> realEstates, Predicate<RealEstate> filter) {
