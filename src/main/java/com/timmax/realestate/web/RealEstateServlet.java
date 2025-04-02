@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Objects;
 
+import static com.timmax.realestate.util.Util.parseFloatOrNull;
+
 public class RealEstateServlet extends HttpServlet {
 
     private ConfigurableApplicationContext springContext;
@@ -64,6 +66,12 @@ public class RealEstateServlet extends HttpServlet {
                                 realEstateController.get(getId(request));
                 request.setAttribute("realEstate", realEstate);
                 request.getRequestDispatcher("/realEstateForm.jsp").forward(request, response);
+                break;
+            case "filter":
+                Float startSquare = parseFloatOrNull(request.getParameter("startSquare"));
+                Float endSquare = parseFloatOrNull(request.getParameter("endSquare"));
+                request.setAttribute("realEstates", realEstateController.getBetween(startSquare, endSquare));
+                request.getRequestDispatcher("/realEstates.jsp").forward(request, response);
                 break;
             case "all":
             default:

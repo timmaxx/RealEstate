@@ -16,4 +16,10 @@ public interface RealEstateRepository {
 
     // ORDERED address asc
     List<RealEstate> getAll(int userId);
+
+    // ORDERED address asc
+    List<RealEstate> getBetweenHalfOpen(
+            Float startSquare,
+            Float endSquare,
+            int userId);
 }

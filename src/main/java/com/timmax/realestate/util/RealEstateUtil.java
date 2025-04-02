@@ -20,8 +20,27 @@ public class RealEstateUtil {
         return filterByPredicate(realEstates, realEstate -> true);
     }
 /*
-    public static List<RealEstateDto> getFilteredDtos(Collection<RealEstate> realEstates, LocalTime startTime, LocalTime endTime) {
-        return filterByPredicate(realEstates, realEstate -> Util.isBetweenHalfOpen(realEstate.getTime(), startTime, endTime));
+    //  В TopJava фильтрация по датам использовалась в сервисе-репозитории,
+    //  а фильтрация по времени в этом классе.
+    //  Т.е. сначала контроллер запрашивал у сервиса, который запрашивал у репозитория перечень,
+    //  ограниченный только датами (но не временем), репозиторий отдавал сервису, сервис отдавал репозиторию.
+    //  А потом контроллер сам фильтровал по времени.
+    //  Считаю, что это не правильно.
+    //  Но в TopJava был специфический случай фильтрации по времени и датам.
+    //  Поэтому здесь таким-же путём не пойду.
+    //  А раз так, то и в метод getDtos можно было-бы перенести функционал и filterByPredicate.
+    public static List<RealEstateDto> getFilteredDtos(
+            Collection<RealEstate> realEstates,
+            Float startSquare,
+            Float endSquare) {
+        return filterByPredicate(
+                realEstates,
+                realEstate -> Util.isBetweenHalfOpen(
+                        realEstate.getSquare(),
+                        startSquare,
+                        endSquare
+                )
+        );
     }
 */
     private static List<RealEstateDto> filterByPredicate(Collection<RealEstate> realEstates, Predicate<RealEstate> filter) {

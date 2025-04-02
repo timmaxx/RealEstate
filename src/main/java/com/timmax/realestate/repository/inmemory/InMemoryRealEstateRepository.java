@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 import com.timmax.realestate.model.RealEstate;
 import com.timmax.realestate.repository.RealEstateRepository;
 import com.timmax.realestate.util.RealEstateUtil;
+import com.timmax.realestate.util.Util;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -44,6 +45,21 @@ public class InMemoryRealEstateRepository implements RealEstateRepository {
     public RealEstate get(int id, int userId) {
         InMemoryBaseRepository<RealEstate> realEstates = userRealEstatesMap.get(userId);
         return realEstates == null ? null : realEstates.get(id);
+    }
+
+    @Override
+    public List<RealEstate> getBetweenHalfOpen(
+            Float startSquare,
+            Float endSquare,
+            int userId) {
+        return filterByPredicate(
+                userId,
+                realEstate -> Util.isBetweenHalfOpen(
+                        realEstate.getSquare(),
+                        startSquare,
+                        endSquare
+                )
+        );
     }
 
     @Override
