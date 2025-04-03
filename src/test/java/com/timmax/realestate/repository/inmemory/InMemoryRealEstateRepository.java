@@ -18,8 +18,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import static com.timmax.realestate.repository.inmemory.InMemoryUserRepository.ADMIN_ID;
-import static com.timmax.realestate.repository.inmemory.InMemoryUserRepository.USER_ID;
+import static com.timmax.realestate.UserTestData.ADMIN_ID;
+import static com.timmax.realestate.UserTestData.USER_ID;
 
 @Repository
 public class InMemoryRealEstateRepository implements RealEstateRepository {
