@@ -1,7 +1,13 @@
 package com.timmax.realestate.web;
 
 public class SecurityUtil {
+    private static int id = 1;
+
     public static int authUserId() {
-        return 1;
+        return id;
+    }
+
+    public static void setAuthUserId(int id) {
+        SecurityUtil.id = id;
     }
 }
