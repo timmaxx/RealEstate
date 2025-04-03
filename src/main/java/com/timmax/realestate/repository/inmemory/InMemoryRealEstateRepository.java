@@ -1,11 +1,15 @@
 package com.timmax.realestate.repository.inmemory;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import com.timmax.realestate.model.RealEstate;
 import com.timmax.realestate.repository.RealEstateRepository;
 import com.timmax.realestate.util.RealEstateUtil;
 import com.timmax.realestate.util.Util;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -19,6 +23,7 @@ import static com.timmax.realestate.repository.inmemory.InMemoryUserRepository.U
 
 @Repository
 public class InMemoryRealEstateRepository implements RealEstateRepository {
+    private static final Logger log = LoggerFactory.getLogger(InMemoryRealEstateRepository.class);
 
     // Map  userId -> realEstateRepository
     private final Map<Integer, InMemoryBaseRepository<RealEstate>> userRealEstatesMap = new ConcurrentHashMap<>();
@@ -33,6 +38,16 @@ public class InMemoryRealEstateRepository implements RealEstateRepository {
     public RealEstate save(RealEstate realEstate, int userId) {
         InMemoryBaseRepository<RealEstate> realEstates = userRealEstatesMap.computeIfAbsent(userId, uId -> new InMemoryBaseRepository<>());
         return realEstates.save(realEstate);
+    }
+
+    @PostConstruct
+    public void postConstruct() {
+        log.info("+++ PostConstruct");
+    }
+
+    @PreDestroy
+    public void preDestroy() {
+        log.info("+++ PreDestroy");
     }
 
     @Override
