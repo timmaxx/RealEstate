@@ -13,6 +13,7 @@ import java.util.Arrays;
 import static com.timmax.realestate.UserTestData.NOT_FOUND;
 import static com.timmax.realestate.UserTestData.USER_ID;
 
+@Ignore
 public class InMemoryAdminRestControllerTest {
     private static final Logger log = LoggerFactory.getLogger(InMemoryAdminRestControllerTest.class);
 

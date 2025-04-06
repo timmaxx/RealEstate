@@ -9,21 +9,29 @@ public class User extends AbstractNamedEntity {
 
     private String password;
 
-    private boolean enabled;
+    private boolean enabled = true;
 
     private Date registered = new Date();
 
     private Set<Role> roles;
 
-    public User(Integer id, String name, String email, String password, Role... roles) {
-        this(id, name, email, password, true, Arrays.asList(roles));
+    public User() {
     }
 
-    public User(Integer id, String name, String email, String password, boolean enabled, Collection<Role> roles) {
+    public User(User u) {
+        this(u.id, u.name, u.email, u.password, u.enabled, u.registered, u.roles);
+    }
+
+    public User(Integer id, String name, String email, String password, Role... roles) {
+        this(id, name, email, password, true, new Date(), Arrays.asList(roles));
+    }
+
+    public User(Integer id, String name, String email, String password, boolean enabled, Date registered, Collection<Role> roles) {
         super(id, name);
         this.email = email;
         this.password = password;
         this.enabled = enabled;
+        this.registered = registered;
         setRoles(roles);
     }
 
