@@ -1,7 +1,6 @@
 package com.timmax.realestate.model;
 
 public class RealEstate extends AbstractBaseEntity {
-    private Integer id;
     private final String address;
     private final float square;
 
