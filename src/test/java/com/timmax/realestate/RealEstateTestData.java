@@ -5,10 +5,11 @@ import com.timmax.realestate.model.RealEstate;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static com.timmax.realestate.model.AbstractBaseEntity.START_SEQ;
 
 public class RealEstateTestData {
+    public static final MatcherFactory.Matcher<RealEstate> REAL_ESTATE_MATCHER = MatcherFactory.usingIgnoringFieldsComparator();
+
     public static final int NOT_FOUND = 10;
     public static final int REAL_ESTATE1_ID = START_SEQ + 3;
     public static final int ADMIN_REAL_ESTATE_ID = START_SEQ + 10;
@@ -36,6 +37,7 @@ public class RealEstateTestData {
         return new RealEstate(REAL_ESTATE1_ID, "Обновлённый Address", 111);
     }
 
+/*
     public static void assertMatch(RealEstate actual, RealEstate expected) {
         assertThat(actual).usingRecursiveComparison().isEqualTo(expected);
     }
@@ -47,4 +49,5 @@ public class RealEstateTestData {
     public static void assertMatch(Iterable<RealEstate> actual, Iterable<RealEstate> expected) {
         assertThat(actual).usingRecursiveFieldByFieldElementComparator().isEqualTo(expected);
     }
+*/
 }

@@ -54,8 +54,8 @@ public class RealEstateServiceTest {
         int newId = created.getId();
         RealEstate newMeal = getNew();
         newMeal.setId(newId);
-        assertMatch(created, newMeal);
-        assertMatch(service.get(newId, USER_ID), newMeal);
+        REAL_ESTATE_MATCHER.assertMatch(created, newMeal);
+        REAL_ESTATE_MATCHER.assertMatch(service.get(newId, USER_ID), newMeal);
     }
 
     @Test
@@ -67,7 +67,7 @@ public class RealEstateServiceTest {
     @Test
     public void get() {
         RealEstate actual = service.get(ADMIN_REAL_ESTATE_ID, ADMIN_ID);
-        assertMatch(actual, adminRealEstate1);
+        REAL_ESTATE_MATCHER.assertMatch(actual, adminRealEstate1);
     }
 
     @Test
@@ -84,23 +84,23 @@ public class RealEstateServiceTest {
     public void update() {
         RealEstate updated = getUpdated();
         service.update(updated, USER_ID);
-        assertMatch(service.get(REAL_ESTATE1_ID, USER_ID), getUpdated());
+        REAL_ESTATE_MATCHER.assertMatch(service.get(REAL_ESTATE1_ID, USER_ID), getUpdated());
     }
 
     @Test
     public void updateNotOwn() {
         assertThrows(NotFoundException.class, () -> service.update(realEstate1, ADMIN_ID));
-        assertMatch(service.get(REAL_ESTATE1_ID, USER_ID), realEstate1);
+        REAL_ESTATE_MATCHER.assertMatch(service.get(REAL_ESTATE1_ID, USER_ID), realEstate1);
     }
 
     @Test
     public void getAll() {
-        assertMatch(service.getAll(USER_ID), realEstates);
+        REAL_ESTATE_MATCHER.assertMatch(service.getAll(USER_ID), realEstates);
     }
 
     @Test
     public void getBetweenInclusive() {
-        assertMatch(service.getBetweenInclusive(
+        REAL_ESTATE_MATCHER.assertMatch(service.getBetweenInclusive(
                         10F,
                         41F, USER_ID),
                 realEstate1, realEstate2, realEstate3, realEstate4);
@@ -108,6 +108,6 @@ public class RealEstateServiceTest {
 
     @Test
     public void getBetweenWithNullSquares() {
-        assertMatch(service.getBetweenInclusive(null, null, USER_ID), realEstates);
+        REAL_ESTATE_MATCHER.assertMatch(service.getBetweenInclusive(null, null, USER_ID), realEstates);
     }
 }

@@ -3,14 +3,14 @@ package com.timmax.realestate;
 import com.timmax.realestate.model.Role;
 import com.timmax.realestate.model.User;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 
 import static com.timmax.realestate.model.AbstractBaseEntity.START_SEQ;
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class UserTestData {
+    public static final MatcherFactory.Matcher<User> USER_MATCHER = MatcherFactory.usingIgnoringFieldsComparator("registered", "roles");
+
     public static final int USER_ID = START_SEQ;
     public static final int ADMIN_ID = START_SEQ + 1;
     public static final int GUEST_ID = START_SEQ + 2;
@@ -33,7 +33,7 @@ public class UserTestData {
         updated.setRoles(Collections.singletonList(Role.ADMIN));
         return updated;
     }
-
+/*
     public static void assertMatch(User actual, User expected) {
         assertThat(actual).usingRecursiveComparison().ignoringFields("registered", "roles").isEqualTo(expected);
     }
@@ -45,4 +45,5 @@ public class UserTestData {
     public static void assertMatch(Iterable<User> actual, Iterable<User> expected) {
         assertThat(actual).usingRecursiveFieldByFieldElementComparatorIgnoringFields("registered", "roles").isEqualTo(expected);
     }
+*/
 }
