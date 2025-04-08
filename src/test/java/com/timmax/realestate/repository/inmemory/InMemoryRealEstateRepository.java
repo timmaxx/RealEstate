@@ -24,17 +24,17 @@ public class InMemoryRealEstateRepository implements RealEstateRepository {
     private static final Logger log = LoggerFactory.getLogger(InMemoryRealEstateRepository.class);
 
     // Map  userId -> realEstateRepository
-    private final Map<Integer, InMemoryBaseRepository<RealEstate>> userRealEstatesMap = new ConcurrentHashMap<>();
+    private final Map<Integer, InMemoryBaseRepository<RealEstate>> usersRealEstatesMap = new ConcurrentHashMap<>();
 
     {
         InMemoryBaseRepository<RealEstate> userRealEstates = new InMemoryBaseRepository<>();
         RealEstateTestData.realEstates.forEach(userRealEstates::put);
-        userRealEstatesMap.put(UserTestData.USER_ID, userRealEstates);
+        usersRealEstatesMap.put(UserTestData.USER_ID, userRealEstates);
     }
 
     @Override
     public RealEstate save(RealEstate realEstate, int userId) {
-        InMemoryBaseRepository<RealEstate> realEstates = userRealEstatesMap.computeIfAbsent(userId, uId -> new InMemoryBaseRepository<>());
+        InMemoryBaseRepository<RealEstate> realEstates = usersRealEstatesMap.computeIfAbsent(userId, uId -> new InMemoryBaseRepository<>());
         return realEstates.save(realEstate);
     }
 
@@ -50,13 +50,13 @@ public class InMemoryRealEstateRepository implements RealEstateRepository {
 
     @Override
     public boolean delete(int id, int userId) {
-        InMemoryBaseRepository<RealEstate> realEstates = userRealEstatesMap.get(userId);
+        InMemoryBaseRepository<RealEstate> realEstates = usersRealEstatesMap.get(userId);
         return realEstates != null && realEstates.delete(id);
     }
 
     @Override
     public RealEstate get(int id, int userId) {
-        InMemoryBaseRepository<RealEstate> realEstates = userRealEstatesMap.get(userId);
+        InMemoryBaseRepository<RealEstate> realEstates = usersRealEstatesMap.get(userId);
         return realEstates == null ? null : realEstates.get(id);
     }
 
@@ -81,7 +81,7 @@ public class InMemoryRealEstateRepository implements RealEstateRepository {
     }
 
     private List<RealEstate> filterByPredicate(int userId, Predicate<RealEstate> filter) {
-        InMemoryBaseRepository<RealEstate> realEstates = userRealEstatesMap.get(userId);
+        InMemoryBaseRepository<RealEstate> realEstates = usersRealEstatesMap.get(userId);
         return realEstates == null ? Collections.emptyList() :
                 realEstates.getCollection().stream()
                         .filter(filter)
