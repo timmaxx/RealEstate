@@ -8,14 +8,6 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class RealEstateUtil {
-    public static final List<RealEstate> realEstates = Arrays.asList(
-            new RealEstate("Address1", 10),
-            new RealEstate("Address2", 20),
-            new RealEstate("Address3", 30),
-            new RealEstate("Address4", 40),
-            new RealEstate("Address5", 50)
-    );
-
     public static List<RealEstateDto> getDtos(Collection<RealEstate> realEstates) {
         return filterByPredicate(realEstates, realEstate -> true);
     }
