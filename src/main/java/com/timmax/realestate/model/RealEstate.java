@@ -1,8 +1,11 @@
 package com.timmax.realestate.model;
 
 public class RealEstate extends AbstractBaseEntity {
-    private final String address;
-    private final float square;
+    private String address;
+    private float square;
+
+    public RealEstate() {
+    }
 
     public RealEstate(String address, float square) {
         this(null, address, square);
@@ -28,6 +31,14 @@ public class RealEstate extends AbstractBaseEntity {
 
     public float getSquare() {
         return square;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setSquare(float square) {
+        this.square = square;
     }
 
     @Override

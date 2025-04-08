@@ -1,4 +1,5 @@
 DELETE FROM user_role;
+DELETE FROM real_estate;
 DELETE FROM users;
 ALTER SEQUENCE global_seq RESTART WITH 100000;
 
@@ -10,3 +11,12 @@ VALUES ('User', 'user@yandex.ru', 'password'),
 INSERT INTO user_role (role, user_id)
 VALUES ('USER', 100000),
        ('ADMIN', 100001);
+
+INSERT INTO real_estate (address, square, user_id)
+VALUES ('Address1', 10, 100000),
+       ('Address2', 20, 100000),
+       ('Address3', 30, 100000),
+       ('Address4', 40, 100000),
+       ('Address5', 50, 100000),
+       ('Address8', 80, 100001),
+       ('Address9', 90, 100001);
