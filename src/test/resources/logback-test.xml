@@ -13,7 +13,7 @@
 
     <logger name="org.postgresql" level="debug"/>
     <!-- Включение этого пакета позволит видеть SQL-запросы -->
-    <logger name="org.springframework.jdbc" level="debug"/>
+    <logger name="org.springframework.jdbc" level="info"/>
     <logger name="com.timmax.realestate" level="debug"/>
 
     <root level="INFO">
