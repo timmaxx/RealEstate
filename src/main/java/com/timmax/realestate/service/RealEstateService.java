@@ -2,6 +2,7 @@ package com.timmax.realestate.service;
 
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 import com.timmax.realestate.model.RealEstate;
 import com.timmax.realestate.repository.RealEstateRepository;
 
@@ -42,10 +43,12 @@ public class RealEstateService {
     }
 
     public void update(RealEstate realEstate, int userId) {
+        Assert.notNull(realEstate, "realEstate must not be null");
         checkNotFound(repository.save(realEstate, userId), realEstate.getId());
     }
 
     public RealEstate create(RealEstate realEstate, int userId) {
+        Assert.notNull(realEstate, "realEstate must not be null");
         return repository.save(realEstate, userId);
     }
 }

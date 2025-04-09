@@ -11,10 +11,7 @@ import com.timmax.realestate.util.Util;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -34,6 +31,7 @@ public class InMemoryRealEstateRepository implements RealEstateRepository {
 
     @Override
     public RealEstate save(RealEstate realEstate, int userId) {
+        Objects.requireNonNull(realEstate, "realEstate must not be null");
         InMemoryBaseRepository<RealEstate> realEstates = usersRealEstatesMap.computeIfAbsent(userId, uId -> new InMemoryBaseRepository<>());
         return realEstates.save(realEstate);
     }

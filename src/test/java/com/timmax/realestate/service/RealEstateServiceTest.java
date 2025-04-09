@@ -46,7 +46,7 @@ public class RealEstateServiceTest {
     @Test
     public void create() {
         RealEstate created = service.create(getNew(), USER_ID);
-        int newId = created.getId();
+        int newId = created.id();
         RealEstate newMeal = getNew();
         newMeal.setId(newId);
         REAL_ESTATE_MATCHER.assertMatch(created, newMeal);
