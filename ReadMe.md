@@ -5,6 +5,8 @@
 RealEstate - учет эксплуатации объектов недвижимости.
 ===============================
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a70083a6d701407e9b8e380212c7dd93)](https://app.codacy.com/gh/timmaxx/RealEstate?utm_source=github.com&utm_medium=referral&utm_content=timmaxx/RealEstate&utm_campaign=Badge_Grade)
+
 ### Предназначен для учёта эксплуатации объектов недвижимости, находящихся в собственности и/или взятых в аренду.
 ### В частности нужно учитывать:
 - Характеристики объектов
