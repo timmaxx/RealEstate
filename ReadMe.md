@@ -1,3 +1,6 @@
+
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/0945fceeab7f413782eb398fe3ccb99d)](https://app.codacy.com/gh/timmaxx/RealEstate/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+
 Этот проект будет вестись параллельно topjava33 - т.е. с применением тех-же средств,
 но реализуя другую бизнес-задачу.
 Ниже будет описана бизнес-задача в полном виде, но для следования за topjava33, задача будет очень проще выглядеть.
