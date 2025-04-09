@@ -8,6 +8,9 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class RealEstateUtil {
+    private RealEstateUtil() {
+    }
+
     public static List<RealEstateDto> getDtos(Collection<RealEstate> realEstates) {
         return filterByPredicate(realEstates, realEstate -> true);
     }

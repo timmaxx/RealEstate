@@ -4,6 +4,8 @@ import com.timmax.realestate.model.AbstractBaseEntity;
 import com.timmax.realestate.util.exception.NotFoundException;
 
 public class ValidationUtil {
+    private ValidationUtil() {
+    }
 
     public static <T> T checkNotFound(T object, int id) {
         checkNotFound(object != null, id);
