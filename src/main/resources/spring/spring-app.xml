@@ -13,7 +13,6 @@
         <constructor-arg name="service" ref="userService"/>
     </bean>
 -->
-    <context:component-scan base-package="com.timmax.**.repository.jdbc"/>
 
     <context:component-scan base-package="com.timmax.**.service"/>
 
