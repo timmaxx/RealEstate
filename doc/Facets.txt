@@ -1,0 +1,22 @@
+Facets
+
+Для интеграции JPA.
+В т.ч. в
+    JpaUserRepository::public boolean delete(int id)
+есть такое:
+    Query query = em.createQuery("" +
+            "DELETE FROM User u" +
+            " WHERE u.id = :id"
+    );
+Чтобы IDEA не подсвечивала User красным, эту интеграцию и нужно сделать.
+После этого, IDEA понимает, что User, написанный в строке, являющейся запросом на JPQL (Java Persistence query language).
+И можно будет сделать переход кликнув с контролом на класс User.
+Кроме того, в классах помеченными аннотациями @MappedSuperclass и @Entity,
+IDEA будет проверять соответствие имен объектов БД именам, заданным в аннотациях @Table и @Column.
+
+Project structure
+ Facets
+  +
+   JPA
+    RealEstate - получится JPA (RealEstate)
+     Default JPA Provider - Hibernate

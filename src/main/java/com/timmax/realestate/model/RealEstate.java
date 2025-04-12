@@ -1,8 +1,14 @@
 package com.timmax.realestate.model;
 
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+
 public class RealEstate extends AbstractBaseEntity {
     private String address;
     private float square;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
 
     public RealEstate() {
     }
@@ -39,6 +45,14 @@ public class RealEstate extends AbstractBaseEntity {
 
     public void setSquare(float square) {
         this.square = square;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
