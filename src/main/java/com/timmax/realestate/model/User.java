@@ -9,9 +9,31 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.*;
 
+@NamedQueries({
+        @NamedQuery(name = User.DELETE_BY_ID, query = "" +
+                "DELETE" +
+                "  FROM User u" +
+                " WHERE u.id = :id"
+        ),
+        @NamedQuery(name = User.GET_BY_EMAIL, query = "" +
+                "SELECT u" +
+                "  FROM User u LEFT JOIN FETCH u.roles" +
+                " WHERE u.email = ?1"
+        ),
+        @NamedQuery(name = User.GET_ALL_SORTED_BY_ADDR, query = "" +
+                "SELECT u" +
+                "  FROM User u LEFT JOIN FETCH u.roles" +
+                " ORDER BY u.name, u.email"
+        ),
+})
 @Entity
 @Table(name = "users")
 public class User extends AbstractNamedEntity {
+
+    public static final String DELETE_BY_ID = "User.deleteById";
+    public static final String GET_BY_EMAIL = "User.getByEmail";
+    public static final String GET_ALL_SORTED_BY_ADDR = "User.getAllSortedByAddr";
+
     @Column(name = "email", nullable = false, unique = true)
     @Email
     @NotBlank
