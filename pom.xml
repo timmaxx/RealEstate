@@ -27,6 +27,7 @@
 
         <!--DB-->
         <postgresql.version>42.7.4</postgresql.version>
+        <hsqldb.version>2.3.4</hsqldb.version>
         <!--    Tests  -->
         <junit.version>4.13.2</junit.version>
         <assertj.version>3.26.3</assertj.version>
@@ -106,6 +107,11 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>${postgresql.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>${hsqldb.version}</version>
         </dependency>
 
         <!--- ORM -->
