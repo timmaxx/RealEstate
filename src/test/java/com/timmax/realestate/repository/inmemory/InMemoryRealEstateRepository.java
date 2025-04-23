@@ -14,7 +14,6 @@ import javax.annotation.PreDestroy;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 @Repository
 public class InMemoryRealEstateRepository implements RealEstateRepository {
@@ -24,7 +23,7 @@ public class InMemoryRealEstateRepository implements RealEstateRepository {
     private final Map<Integer, InMemoryBaseRepository<RealEstate>> usersRealEstatesMap = new ConcurrentHashMap<>();
 
     {
-        InMemoryBaseRepository<RealEstate> userRealEstates = new InMemoryBaseRepository<>();
+        var userRealEstates = new InMemoryBaseRepository<RealEstate>();
         RealEstateTestData.realEstates.forEach(userRealEstates::put);
         usersRealEstatesMap.put(UserTestData.USER_ID, userRealEstates);
     }
@@ -32,7 +31,7 @@ public class InMemoryRealEstateRepository implements RealEstateRepository {
     @Override
     public RealEstate save(RealEstate realEstate, int userId) {
         Objects.requireNonNull(realEstate, "realEstate must not be null");
-        InMemoryBaseRepository<RealEstate> realEstates = usersRealEstatesMap.computeIfAbsent(userId, uId -> new InMemoryBaseRepository<>());
+        var realEstates = usersRealEstatesMap.computeIfAbsent(userId, uId -> new InMemoryBaseRepository<>());
         return realEstates.save(realEstate);
     }
 
@@ -48,13 +47,13 @@ public class InMemoryRealEstateRepository implements RealEstateRepository {
 
     @Override
     public boolean delete(int id, int userId) {
-        InMemoryBaseRepository<RealEstate> realEstates = usersRealEstatesMap.get(userId);
+        var realEstates = usersRealEstatesMap.get(userId);
         return realEstates != null && realEstates.delete(id);
     }
 
     @Override
     public RealEstate get(int id, int userId) {
-        InMemoryBaseRepository<RealEstate> realEstates = usersRealEstatesMap.get(userId);
+        var realEstates = usersRealEstatesMap.get(userId);
         return realEstates == null ? null : realEstates.get(id);
     }
 
@@ -79,11 +78,11 @@ public class InMemoryRealEstateRepository implements RealEstateRepository {
     }
 
     private List<RealEstate> filterByPredicate(int userId, Predicate<RealEstate> filter) {
-        InMemoryBaseRepository<RealEstate> realEstates = usersRealEstatesMap.get(userId);
+        var realEstates = usersRealEstatesMap.get(userId);
         return realEstates == null ? Collections.emptyList() :
                 realEstates.getCollection().stream()
                         .filter(filter)
                         .sorted(Comparator.comparing(RealEstate::getAddress))
-                        .collect(Collectors.toList());
+                        .toList();
     }
 }

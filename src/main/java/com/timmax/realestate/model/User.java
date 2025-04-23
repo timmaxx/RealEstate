@@ -10,20 +10,23 @@ import javax.validation.constraints.Size;
 import java.util.*;
 
 @NamedQueries({
-        @NamedQuery(name = User.DELETE_BY_ID, query = "" +
-                "DELETE" +
-                "  FROM User u" +
-                " WHERE u.id = :id"
+        @NamedQuery(name = User.DELETE_BY_ID, query = """
+                DELETE
+                  FROM User u
+                 WHERE u.id = :id
+                """
         ),
-        @NamedQuery(name = User.GET_BY_EMAIL, query = "" +
-                "SELECT u" +
-                "  FROM User u LEFT JOIN FETCH u.roles" +
-                " WHERE u.email = ?1"
+        @NamedQuery(name = User.GET_BY_EMAIL, query = """
+                SELECT u
+                  FROM User u LEFT JOIN FETCH u.roles
+                 WHERE u.email = ?1
+                """
         ),
-        @NamedQuery(name = User.GET_ALL_SORTED_BY_ADDR, query = "" +
-                "SELECT u" +
-                "  FROM User u LEFT JOIN FETCH u.roles" +
-                " ORDER BY u.name, u.email"
+        @NamedQuery(name = User.GET_ALL_SORTED_BY_ADDR, query = """
+                SELECT u
+                  FROM User u LEFT JOIN FETCH u.roles
+                 ORDER BY u.name, u.email
+                """
         ),
 })
 @Entity
@@ -67,7 +70,7 @@ public class User extends AbstractNamedEntity {
     }
 
     public User(Integer id, String name, String email, String password, Role... roles) {
-        this(id, name, email, password, true, new Date(), Arrays.asList(roles));
+        this(id, name, email, password, true, new Date(), List.of(roles));
     }
 
     public User(Integer id, String name, String email, String password, boolean enabled, Date registered, Collection<Role> roles) {

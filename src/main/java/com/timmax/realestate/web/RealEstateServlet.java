@@ -53,34 +53,32 @@ public class RealEstateServlet extends HttpServlet {
         String action = request.getParameter("action");
 
         switch (action == null ? "all" : action) {
-            case "delete":
+            case "delete" -> {
                 int id = getId(request);
                 realEstateController.delete(id);
                 response.sendRedirect("realEstates");
-                break;
-            case "create":
-            case "update":
+            }
+            case "create", "update" -> {
                 final RealEstate realEstate =
                         "create".equals(action) ?
                                 new RealEstate("", 1) :
                                 realEstateController.get(getId(request));
                 request.setAttribute("realEstate", realEstate);
                 request.getRequestDispatcher("/realEstateForm.jsp").forward(request, response);
-                break;
-            case "filter":
+            }
+            case "filter" -> {
                 Float startSquare = parseFloatOrNull(request.getParameter("startSquare"));
                 Float endSquare = parseFloatOrNull(request.getParameter("endSquare"));
                 request.setAttribute("realEstates", realEstateController.getBetween(startSquare, endSquare));
                 request.getRequestDispatcher("/realEstates.jsp").forward(request, response);
-                break;
-            case "all":
-            default:
+            }
+            default -> {
                 request.setAttribute(
                         "realEstates",
                         realEstateController.getAll()
                 );
                 request.getRequestDispatcher("/realEstates.jsp").forward(request, response);
-                break;
+            }
         }
     }
 

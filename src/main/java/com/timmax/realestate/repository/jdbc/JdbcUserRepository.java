@@ -42,14 +42,15 @@ public class JdbcUserRepository implements UserRepository {
         if (user.isNew()) {
             Number newKey = insertUser.executeAndReturnKey(parameterSource);
             user.setId(newKey.intValue());
-        } else if (namedParameterJdbcTemplate.update("" +
-                        "UPDATE users" +
-                        "   SET name = :name," +
-                        "       email = :email," +
-                        "       password = :password," +
-                        "       registered = :registered," +
-                        "       enabled = :enabled" +
-                        " WHERE id = :id",
+        } else if (namedParameterJdbcTemplate.update("""
+                        UPDATE  users
+                           SET  name = :name,
+                                email = :email,
+                                password = :password,
+                                registered = :registered,
+                                enabled = :enabled
+                         WHERE id = :id
+                        """,
                 parameterSource
         ) == 0) {
             return null;
@@ -59,19 +60,21 @@ public class JdbcUserRepository implements UserRepository {
 
     @Override
     public boolean delete(int id) {
-        return jdbcTemplate.update("" +
-                        "DELETE FROM users" +
-                        " WHERE id = ?",
+        return jdbcTemplate.update("""
+                        DELETE FROM users
+                         WHERE id = ?
+                        """,
                 id
         ) != 0;
     }
 
     @Override
     public User get(int id) {
-        List<User> users = jdbcTemplate.query("" +
-                        "SELECT *" +
-                        "  FROM users" +
-                        " WHERE id = ?",
+        List<User> users = jdbcTemplate.query("""
+                        SELECT *
+                          FROM users
+                         WHERE id = ?
+                        """,
                 ROW_MAPPER, id
         );
         return DataAccessUtils.singleResult(users);
@@ -87,10 +90,11 @@ public class JdbcUserRepository implements UserRepository {
                 ROW_MAPPER, email
         );
 */
-        List<User> users = jdbcTemplate.query("" +
-                        "SELECT *" +
-                        "  FROM users" +
-                        " WHERE email = ?",
+        List<User> users = jdbcTemplate.query("""
+                        SELECT *
+                          FROM users
+                         WHERE email = ?
+                        """,
                 ROW_MAPPER, email
         );
         return DataAccessUtils.singleResult(users);
@@ -98,10 +102,11 @@ public class JdbcUserRepository implements UserRepository {
 
     @Override
     public List<User> getAll() {
-        return jdbcTemplate.query("" +
-                        "SELECT *" +
-                        "  FROM users" +
-                        " ORDER BY name, email",
+        return jdbcTemplate.query("""
+                        SELECT *
+                          FROM users
+                         ORDER BY name, email
+                        """,
                 ROW_MAPPER
         );
     }

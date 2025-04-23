@@ -2,7 +2,6 @@ package com.timmax.realestate;
 
 import com.timmax.realestate.model.RealEstate;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static com.timmax.realestate.model.AbstractBaseEntity.START_SEQ;
@@ -25,7 +24,7 @@ public class RealEstateTestData {
     public static final RealEstate adminRealEstate2 = new RealEstate(ADMIN_REAL_ESTATE_ID + 1, "Address11", 111);
 
     public static final List<RealEstate> realEstates =
-            Arrays.asList(
+            List.of(
                     realEstate1, realEstate2, realEstate3, realEstate4, realEstate5, realEstate6, realEstate7
             );
 
@@ -36,18 +35,4 @@ public class RealEstateTestData {
     public static RealEstate getUpdated() {
         return new RealEstate(REAL_ESTATE1_ID, "Обновлённый Address", 111);
     }
-
-/*
-    public static void assertMatch(RealEstate actual, RealEstate expected) {
-        assertThat(actual).usingRecursiveComparison().isEqualTo(expected);
-    }
-
-    public static void assertMatch(Iterable<RealEstate> actual, RealEstate... expected) {
-        assertMatch(actual, Arrays.asList(expected));
-    }
-
-    public static void assertMatch(Iterable<RealEstate> actual, Iterable<RealEstate> expected) {
-        assertThat(actual).usingRecursiveFieldByFieldElementComparator().isEqualTo(expected);
-    }
-*/
 }

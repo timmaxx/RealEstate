@@ -5,7 +5,6 @@ import com.timmax.realestate.dto.RealEstateDto;
 
 import java.util.*;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 public class RealEstateUtil {
     private RealEstateUtil() {
@@ -43,7 +42,7 @@ public class RealEstateUtil {
                 .filter(filter)
                 //  .map(realEstate -> createDto(realEstate))
                 .map(RealEstateUtil::createDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     private static RealEstateDto createDto(RealEstate realEstate) {
