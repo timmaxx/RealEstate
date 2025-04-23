@@ -84,6 +84,14 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!--  javax.annotation.meta.When.MAYBE compile warning, https://stackoverflow.com/questions/53326271/548473 -->
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>annotations</artifactId>
+            <version>3.0.1</version>
+            <scope>compile</scope>
+        </dependency>
+
         <dependency>
             <groupId>javax.annotation</groupId>
             <artifactId>javax.annotation-api</artifactId>
