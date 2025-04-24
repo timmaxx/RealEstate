@@ -22,7 +22,7 @@ import java.util.*;
                  WHERE u.email = ?1
                 """
         ),
-        @NamedQuery(name = User.GET_ALL_SORTED_BY_ADDR, query = """
+        @NamedQuery(name = User.GET_ALL_SORTED_BY_EMAIL, query = """
                 SELECT u
                   FROM User u LEFT JOIN FETCH u.roles
                  ORDER BY u.name, u.email
@@ -35,7 +35,7 @@ public class User extends AbstractNamedEntity {
 
     public static final String DELETE_BY_ID = "User.deleteById";
     public static final String GET_BY_EMAIL = "User.getByEmail";
-    public static final String GET_ALL_SORTED_BY_ADDR = "User.getAllSortedByAddr";
+    public static final String GET_ALL_SORTED_BY_EMAIL = "User.getAllSortedByEmail";
 
     @Column(name = "email", nullable = false, unique = true)
     @Email
