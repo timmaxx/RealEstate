@@ -1,13 +1,63 @@
 package com.timmax.realestate.model;
 
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
+import org.hibernate.validator.constraints.Range;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+@NamedQueries({
+        @NamedQuery(name = RealEstate.GET_ALL_SORTED_BY_ADDRESS, query = """
+                SELECT re
+                  FROM RealEstate re
+                 WHERE re.user.id = :userId
+                 ORDER BY re.address
+                """),
+        @NamedQuery(name = RealEstate.DELETE_BY_ID, query = """
+                DELETE
+                  FROM RealEstate re
+                 WHERE re.id = :id
+                   AND re.user.id = :userId
+                """),
+        @NamedQuery(name = RealEstate.GET_BETWEEN_SQUARE, query = """
+                SELECT re
+                  FROM RealEstate re
+                 WHERE re.user.id = :userId
+                   AND re.square >= :startSquare
+                   AND re.square < :endSquare
+                 ORDER BY re.address
+                """),
+//        @NamedQuery(name = Meal.UPDATE, query = "UPDATE Meal m SET m.dateTime = :datetime, m.calories= :calories," +
+//                "m.description=:desc where m.id=:id and m.user.id=:userId")
+})
+@Entity
+@Table(
+        name = "real_estate",
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        columnNames = {"user_id", "address"},
+                        name = "real_estate_unique_user_address_idx"
+                )
+        }
+)
 public class RealEstate extends AbstractBaseEntity {
+    public static final String GET_ALL_SORTED_BY_ADDRESS = "RealEstate.getAllSortedByAddress";
+    public static final String DELETE_BY_ID = "RealEstate.deleteById";
+    public static final String GET_BETWEEN_SQUARE = "RealEstate.getBetweenSquare";
+
+    @Column(name = "address", nullable = false)
+    @NotBlank
+    @Size(min = 2, max = 120)
     private String address;
+
+    @Column(name = "square", nullable = false)
+    @Range(min = 1)
     private float square;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    @NotNull
     private User user;
 
     public RealEstate() {
@@ -21,14 +71,6 @@ public class RealEstate extends AbstractBaseEntity {
         super(id);
         this.address = address;
         this.square = square;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getAddress() {
