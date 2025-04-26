@@ -44,7 +44,8 @@ Using CATALINA_BASE:   "C:\Users\Maksim\AppData\Local\JetBrains\IntelliJIdea2022
         <encoder>
             <charset>UTF-8</charset>
             <!-- Здесь обойдёмся без даты -->
-            <pattern>%d{HH:mm:ss.SSS} %-5level %class{50}.%M:%L - %msg%n</pattern>
+            <!-- Раскрасим: время - без раскраски, уровень - своим цветом, класс - цианом, сообщение - без раскраски -->
+            <pattern>%d{HH:mm:ss.SSS} %highlight(%-5level) %cyan(%class{50}.%M:%L) - %msg%n</pattern>
         </encoder>
     </appender>
 

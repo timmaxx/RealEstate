@@ -7,13 +7,27 @@
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <charset>UTF-8</charset>
-            <pattern>%d{HH:mm:ss.SSS} %-5level %class{50}.%M:%L - %msg%n</pattern>
+            <!-- Раскрасим: дату и время - без раскраски, уровень - своим цветом, класс - цианом, сообщение - без раскраски -->
+            <pattern>%d{HH:mm:ss.SSS} %highlight(%-5level) %cyan(%class{50}.%M:%L) - %msg%n</pattern>
         </encoder>
     </appender>
 
-    <logger name="org.postgresql" level="debug"/>
-    <!-- Включение этого пакета позволит видеть SQL-запросы -->
-    <logger name="org.springframework.jdbc" level="info"/>
+    <appender name="result" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>%magenta(%msg%n)</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="result" level="INFO" additivity="false">
+        <appender-ref ref="result"/>
+    </logger>
+
+    <!--
+        <logger name="org.postgresql" level="debug"/>
+        &lt;!&ndash; Включение этого пакета позволит видеть SQL-запросы &ndash;&gt;
+        <logger name="org.springframework.jdbc" level="info"/>
+    -->
     <logger name="com.timmax.realestate" level="debug"/>
 
     <root level="INFO">
