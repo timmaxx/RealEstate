@@ -55,11 +55,15 @@ public class RealEstateServiceTest {
 
     @AfterClass
     public static void printResult() {
-        log.info("\n---------------------------------" +
-                "\nTest                 Duration, ms" +
-                "\n---------------------------------" +
-                results +
-                "\n---------------------------------");
+        log.info("""
+                
+                ---------------------------------
+                Test                 Duration, ms
+                ---------------------------------""" +
+                results + """
+                
+                ---------------------------------"""
+        );
     }
 
     @Test
