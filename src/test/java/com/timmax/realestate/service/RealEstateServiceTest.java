@@ -15,7 +15,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringRunner;
-import com.timmax.realestate.Profiles;
+import com.timmax.realestate.ActiveDbProfileResolver;
 import com.timmax.realestate.model.RealEstate;
 import com.timmax.realestate.util.exception.NotFoundException;
 
@@ -36,7 +36,7 @@ import static com.timmax.realestate.UserTestData.USER_ID;
         scripts = "classpath:db/populateDB.sql",
         config = @SqlConfig(encoding = "UTF-8")
 )
-@ActiveProfiles(Profiles.ACTIVE_DB)
+@ActiveProfiles(resolver = ActiveDbProfileResolver.class)
 public class RealEstateServiceTest {
     private static final Logger log = getLogger("result");
 
@@ -126,7 +126,7 @@ public class RealEstateServiceTest {
 
     @Test
     public void updateNotOwn() {
-        NotFoundException exception = assertThrows(NotFoundException.class, () -> service.update(realEstate1, ADMIN_ID));
+        NotFoundException exception = assertThrows(NotFoundException.class, () -> service.update(getUpdated(), ADMIN_ID));
         Assert.assertEquals("Not found entity with id=" + REAL_ESTATE1_ID, exception.getMessage());
         REAL_ESTATE_MATCHER.assertMatch(service.get(REAL_ESTATE1_ID, USER_ID), realEstate1);
     }

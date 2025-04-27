@@ -9,7 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringRunner;
-import com.timmax.realestate.Profiles;
+import com.timmax.realestate.ActiveDbProfileResolver;
 import com.timmax.realestate.UserTestData;
 import com.timmax.realestate.model.Role;
 import com.timmax.realestate.model.User;
@@ -26,7 +26,7 @@ import static com.timmax.realestate.UserTestData.*;
 })
 @RunWith(SpringRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-@ActiveProfiles(Profiles.ACTIVE_DB)
+@ActiveProfiles(resolver = ActiveDbProfileResolver.class)
 public class UserServiceTest {
 
     @Autowired
