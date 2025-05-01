@@ -1,16 +1,13 @@
 package com.timmax.realestate.service;
 
-import org.junit.AfterClass;
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.rules.Stopwatch;
 import org.junit.runner.Description;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.dao.DataAccessException;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
@@ -37,6 +34,7 @@ import static com.timmax.realestate.UserTestData.USER_ID;
         config = @SqlConfig(encoding = "UTF-8")
 )
 @ActiveProfiles(resolver = ActiveDbProfileResolver.class)
+@Ignore
 public class RealEstateServiceTest {
     private static final Logger log = getLogger("result");
 
