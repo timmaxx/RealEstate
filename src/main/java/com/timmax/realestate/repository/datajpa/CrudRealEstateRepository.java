@@ -14,33 +14,47 @@ public interface CrudRealEstateRepository extends JpaRepository<RealEstate, Inte
     //  TimMax:
     //      Во всех запросах есть полностью и частично повторяющиеся блоки.
     //      А что если эти повторы вынести в отдельные строковые константы и собирать из них нужные запросы?!
+    String delete = """
+                DELETE
+            """;
+    String select = """
+                SELECT re
+            """;
+
+    String from = """
+                  FROM RealEstate re
+            """;
+
+    String where = """
+                 WHERE re.user.id = :userId
+            """;
+
+    String orderBy = """
+                ORDER BY re.address
+            """;
 
     @Modifying
     @Transactional
-    @Query("""
-        DELETE
-          FROM RealEstate re
-         WHERE re.user.id = :userId
-           AND re.id = :id
-    """)
+    @Query(delete +
+            from +
+            where + """
+                  AND re.id = :id
+            """)
     int delete(@Param("id") int id, @Param("userId") int userId);
 
-    @Query("""
-        SELECT re
-          FROM RealEstate re
-         WHERE re.user.id = :userId
-         ORDER BY re.address
-    """)
+    @Query(select +
+            from +
+            where +
+            orderBy)
     List<RealEstate> getAll(@Param("userId") int userId);
 
-    @Query("""
-        SELECT re
-          FROM RealEstate re
-         WHERE re.user.id = :userId
-           AND re.square >= :startSquare
-           AND re.square < :endSquare
-         ORDER BY re.address
-    """)
+    @Query(select +
+            from +
+            where + """
+                   AND re.square >= :startSquare
+                   AND re.square < :endSquare
+            """ + orderBy
+    )
     List<RealEstate> getBetweenHalfOpen(
             @Param("startSquare") Float startSquare,
             @Param("endSquare") Float endSquare,
