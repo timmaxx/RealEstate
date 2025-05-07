@@ -29,16 +29,6 @@
 
     <beans profile="hsqldb">
         <context:property-placeholder location="classpath:db/hsqldb.properties" system-properties-mode="OVERRIDE"/>
-
-        <!--no pooling-->
-        <!-- Значение для параметра driverClassName желательно вынести в свойства. -->
-        <!-- А может и class в свойства? -->
-        <bean id="dataSource"
-              class="org.springframework.jdbc.datasource.DriverManagerDataSource"
-              p:driverClassName="org.hsqldb.jdbcDriver"
-              p:url="${database.url}"
-              p:username="${database.username}"
-              p:password="${database.password}"/>
     </beans>
 
     <beans profile="postgres">
@@ -52,12 +42,12 @@
         </bean>
 
         <context:property-placeholder location="classpath:db/postgres.properties" system-properties-mode="OVERRIDE"/>
+    </beans>
 
-        <!-- Значение для параметра driverClassName желательно вынести в свойства. -->
-        <!-- А может и class в свойства? -->
+    <beans profile="postgres, hsqldb">
         <bean id="dataSource"
-              class="org.apache.tomcat.jdbc.pool.DataSource"
-              p:driverClassName="org.postgresql.Driver"
+              class="${dataSourceClass}"
+              p:driverClassName="${driverClassName}"
               p:url="${database.url}"
               p:username="${database.username}"
               p:password="${database.password}"/>
