@@ -41,13 +41,18 @@ public abstract class AbstractServiceTest {
     };
 
     //    https://dzone.com/articles/applying-new-jdk-11-string-methods
+    //  103 = 95 + 1 + 7 (см. выше "%-95s %7d")
     private static final String DELIM = "-".repeat(103);
 
     @AfterClass
     public static void printResult() {
-        log.info("\n" + DELIM +
-                "\nTest                                                                                       Duration, ms" +
-                "\n" + DELIM + "\n" + results + DELIM + "\n");
+        log.info("\n" +
+                DELIM + "\n" +
+                "Test                                                                                       Duration, ms" + "\n" +
+                DELIM + "\n" +
+                results +
+                DELIM + "\n"
+        );
         results.setLength(0);
     }
 }
