@@ -28,7 +28,7 @@
     <!-- Choose profile from (hsqldb/ postgres) -->
 
     <beans profile="hsqldb">
-        <context:property-placeholder location="classpath:db/hsqldb.properties" system-properties-mode="OVERRIDE"/>
+        <context:property-placeholder location="classpath:db/common.properties, classpath:db/hsqldb.properties" system-properties-mode="OVERRIDE"/>
     </beans>
 
     <beans profile="postgres">
@@ -41,7 +41,7 @@
             <property name="staticMethod" value="org.slf4j.bridge.SLF4JBridgeHandler.install"/>
         </bean>
 
-        <context:property-placeholder location="classpath:db/postgres.properties" system-properties-mode="OVERRIDE"/>
+        <context:property-placeholder location="classpath:db/common.properties, classpath:db/postgres.properties" system-properties-mode="OVERRIDE"/>
     </beans>
 
     <beans profile="postgres, hsqldb">
