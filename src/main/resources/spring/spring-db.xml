@@ -16,10 +16,7 @@
 
     <!-- Общая для всех профилей часть -->
     <jdbc:initialize-database data-source="dataSource" enabled="${database.init}">
-        <!--    Вероятно желательно переименовать jdbc.initLocation, чтобы не было недопонимания,
-                что именно jdbc (как профиль) здесь важно.
-                -->
-        <jdbc:script location="${jdbc.initLocation}"/>
+        <jdbc:script encoding="utf-8" location="${sql.initLocation}"/>
         <!-- Значение желательно вынести в свойства. -->
         <jdbc:script encoding="utf-8" location="classpath:db/populateDB.sql"/>
     </jdbc:initialize-database>
