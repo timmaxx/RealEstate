@@ -28,6 +28,10 @@
     <!-- Choose profile from (hsqldb/ postgres) -->
 
     <beans profile="hsqldb">
+        <!--
+        Если в разных файлах свойств будут встречаться одинаковые свойства с разными значениями,
+        то результирующим значением будет то, которое встретилось последним.
+        -->
         <context:property-placeholder location="classpath:db/common.properties, classpath:db/hsqldb.properties" system-properties-mode="OVERRIDE"/>
     </beans>
 
