@@ -82,12 +82,13 @@ public abstract class JdbcRealEstateRepository<T> implements RealEstateRepositor
             Number newId = insertRealEstate.executeAndReturnKey(map);
             realEstate.setId(newId.intValue());
         } else {
-            if (namedParameterJdbcTemplate.update("" +
-                            "UPDATE real_estate " +
-                            "   SET address = :address," +
-                            "       square = :square" +
-                            " WHERE id = :id" +
-                            "   AND user_id = :user_id",
+            if (namedParameterJdbcTemplate.update("""
+                            UPDATE real_estate
+                               SET address = :address,
+                                   square = :square
+                             WHERE id = :id
+                               AND user_id = :user_id
+                            """,
                     map) == 0
             ) {
                 return null;
@@ -98,21 +99,24 @@ public abstract class JdbcRealEstateRepository<T> implements RealEstateRepositor
 
     @Override
     public boolean delete(int id, int userId) {
-        return jdbcTemplate.update("" +
-                        "DELETE FROM real_estate" +
-                        " WHERE id = ?" +
-                        "   AND user_id = ?",
+        return jdbcTemplate.update("""
+                        DELETE
+                          FROM real_estate
+                         WHERE id = ?
+                           AND user_id = ?
+                        """,
                 id, userId
         ) != 0;
     }
 
     @Override
     public RealEstate get(int id, int userId) {
-        List<RealEstate> realEstates = jdbcTemplate.query("" +
-                        "SELECT *" +
-                        "  FROM real_estate" +
-                        " WHERE id = ?" +
-                        "   AND user_id = ?",
+        List<RealEstate> realEstates = jdbcTemplate.query("""
+                        SELECT *
+                          FROM real_estate
+                         WHERE id = ?
+                           AND user_id = ?
+                        """,
                 ROW_MAPPER, id, userId
         );
         return DataAccessUtils.singleResult(realEstates);
@@ -121,23 +125,25 @@ public abstract class JdbcRealEstateRepository<T> implements RealEstateRepositor
 
     @Override
     public List<RealEstate> getAll(int userId) {
-        return jdbcTemplate.query("" +
-                        "SELECT *" +
-                        "  FROM real_estate" +
-                        " WHERE user_id = ?" +
-                        " ORDER BY address",
+        return jdbcTemplate.query("""
+                        SELECT *
+                          FROM real_estate
+                         WHERE user_id = ?
+                         ORDER BY address
+                        """,
                 ROW_MAPPER, userId
         );
     }
 
     @Override
     public List<RealEstate> getBetweenHalfOpen(Float startSquare, Float endSquare, int userId) {
-        return jdbcTemplate.query("" +
-                        "SELECT *" +
-                        "  FROM real_estate" +
-                        " WHERE user_id = ?" +
-                        "   AND square >= ? AND square < ?" +
-                        " ORDER BY address",
+        return jdbcTemplate.query("""
+                        SELECT *
+                          FROM real_estate
+                         WHERE user_id = ?
+                           AND square >= ? AND square < ?
+                         ORDER BY address
+                        """,
                 //// Если-бы в сущности было поле date_time, то было-бы так:
                 //// ROW_MAPPER, userId, startDateTime, endDateTime
                 // После внесения изменения в класс (сделан параметризованным), можно и нужно делать так:
