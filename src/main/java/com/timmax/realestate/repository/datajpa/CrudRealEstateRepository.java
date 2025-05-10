@@ -43,4 +43,12 @@ public interface CrudRealEstateRepository extends JpaRepository<RealEstate, Inte
             @Param("endSquare") Float endSquare,
             @Param("userId") int userId
     );
+
+    @Query("""
+        SELECT re
+          FROM RealEstate re JOIN FETCH re.user
+         WHERE re.id = ?1
+           and re.user.id = ?2
+    """)
+    RealEstate getWithUser(int id, int userId);
 }

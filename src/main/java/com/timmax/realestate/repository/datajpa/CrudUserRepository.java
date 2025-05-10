@@ -20,4 +20,11 @@ public interface CrudUserRepository extends JpaRepository<User, Integer> {
     int delete(@Param("id") int id);
 
     User getByEmail(String email);
+
+    @Query("""
+        SELECT u
+          FROM User u LEFT JOIN FETCH u.realEstates
+         WHERE u.id = ?1
+    """)
+    User getWithRealEstates(int id);
 }

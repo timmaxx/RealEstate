@@ -62,6 +62,9 @@ public class User extends AbstractNamedEntity {
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @OrderBy("address")
+    private List<RealEstate> realEstates;
     public User() {
     }
 
@@ -120,6 +123,10 @@ public class User extends AbstractNamedEntity {
 
     public String getPassword() {
         return password;
+    }
+
+    public List<RealEstate> getRealEstates() {
+        return realEstates;
     }
 
     @Override

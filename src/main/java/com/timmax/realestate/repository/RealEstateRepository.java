@@ -22,4 +22,8 @@ public interface RealEstateRepository {
             Float startSquare,
             Float endSquare,
             int userId);
+
+    default RealEstate getWithUser(int id, int userId) {
+        throw new UnsupportedOperationException();
+    }
 }

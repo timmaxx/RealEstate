@@ -15,7 +15,7 @@ import static com.timmax.realestate.UserTestData.USER_ID;
 public abstract class AbstractRealEstateServiceTest extends AbstractServiceTest {
 
     @Autowired
-    private RealEstateService service;
+    protected RealEstateService service;
 
     @Test
     public void delete() {

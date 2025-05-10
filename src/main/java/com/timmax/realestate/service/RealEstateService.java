@@ -51,4 +51,8 @@ public class RealEstateService {
         Assert.notNull(realEstate, "realEstate must not be null");
         return repository.save(realEstate, userId);
     }
+
+    public RealEstate getWithUser(int id, int userId) {
+        return checkNotFound(repository.getWithUser(id, userId), id);
+    }
 }

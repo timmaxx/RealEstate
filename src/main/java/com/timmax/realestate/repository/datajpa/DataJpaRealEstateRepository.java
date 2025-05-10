@@ -51,4 +51,9 @@ public class DataJpaRealEstateRepository implements RealEstateRepository {
     public List<RealEstate> getBetweenHalfOpen(Float startSquare, Float endSquare, int userId) {
         return crudRealEstateRepository.getBetweenHalfOpen(startSquare, endSquare, userId);
     }
+
+    @Override
+    public RealEstate getWithUser(int id, int userId) {
+        return crudRealEstateRepository.getWithUser(id, userId);
+    }
 }
