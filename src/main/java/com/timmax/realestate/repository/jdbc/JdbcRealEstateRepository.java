@@ -15,7 +15,7 @@ import com.timmax.realestate.repository.RealEstateRepository;
 import java.util.List;
 
 @Repository
-public abstract class JdbcRealEstateRepository implements RealEstateRepository {
+public class JdbcRealEstateRepository implements RealEstateRepository {
     private static final RowMapper<RealEstate> ROW_MAPPER = BeanPropertyRowMapper.newInstance(RealEstate.class);
 
     private final JdbcTemplate jdbcTemplate;
