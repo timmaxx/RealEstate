@@ -13,6 +13,7 @@ import static com.timmax.realestate.util.ValidationUtil.checkNotFound;
 
 @Service
 public class UserService {
+    private final String MUST_NOT_BE_NULL = " must not be null";
     private final UserRepository repository;
 
     public UserService(UserRepository repository) {
@@ -21,7 +22,7 @@ public class UserService {
 
     @CacheEvict(value = "users", allEntries = true)
     public User create(User user) {
-        Assert.notNull(user, "user must not be null");
+        Assert.notNull(user, "user" + MUST_NOT_BE_NULL);
         return repository.save(user);
     }
 
@@ -35,7 +36,7 @@ public class UserService {
     }
 
     public User getByEmail(String email) {
-        Assert.notNull(email, "email must not be null");
+        Assert.notNull(email, "email" + MUST_NOT_BE_NULL);
         return checkNotFound(repository.getByEmail(email), "email=" + email);
     }
 
@@ -46,7 +47,7 @@ public class UserService {
 
     @CacheEvict(value = "users", allEntries = true)
     public void update(User user) {
-        Assert.notNull(user, "user must not be null");
+        Assert.notNull(user, "user" + MUST_NOT_BE_NULL);
         checkNotFound(repository.save(user), user.getId());
     }
 

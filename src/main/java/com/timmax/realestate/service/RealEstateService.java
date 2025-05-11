@@ -14,6 +14,7 @@ import static com.timmax.realestate.util.ValidationUtil.checkNotFound;
 
 @Service
 public class RealEstateService {
+    private final String MUST_NOT_BE_NULL = " must not be null";
     private final RealEstateRepository repository;
 
     public RealEstateService(RealEstateRepository repository) {
@@ -43,12 +44,12 @@ public class RealEstateService {
     }
 
     public void update(RealEstate realEstate, int userId) {
-        Assert.notNull(realEstate, "realEstate must not be null");
+        Assert.notNull(realEstate, "realEstate" + MUST_NOT_BE_NULL);
         checkNotFound(repository.save(realEstate, userId), realEstate.getId());
     }
 
     public RealEstate create(RealEstate realEstate, int userId) {
-        Assert.notNull(realEstate, "realEstate must not be null");
+        Assert.notNull(realEstate, "realEstate" + MUST_NOT_BE_NULL);
         return repository.save(realEstate, userId);
     }
 
