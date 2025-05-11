@@ -7,6 +7,8 @@ import org.springframework.dao.DataAccessException;
 import com.timmax.realestate.model.RealEstate;
 import com.timmax.realestate.util.exception.NotFoundException;
 
+import javax.validation.ConstraintViolationException;
+
 import static org.junit.Assert.assertThrows;
 import static com.timmax.realestate.RealEstateTestData.*;
 import static com.timmax.realestate.UserTestData.ADMIN_ID;
@@ -95,5 +97,14 @@ public abstract class AbstractRealEstateServiceTest extends AbstractServiceTest 
     @Test
     public void getBetweenWithNullSquares() {
         REAL_ESTATE_MATCHER.assertMatch(service.getBetweenInclusive(null, null, USER_ID), realEstates);
+    }
+
+    @Test
+    public void createWithException() {
+        validateRootCause(ConstraintViolationException.class, () -> service.create(new RealEstate(null, "", 300), USER_ID));
+        validateRootCause(ConstraintViolationException.class, () -> service.create(new RealEstate(null, "a", 300), USER_ID));
+        validateRootCause(ConstraintViolationException.class, () -> service.create(new RealEstate(null, "  ", 300), USER_ID));
+        validateRootCause(ConstraintViolationException.class, () -> service.create(new RealEstate(null, "a".repeat(121), 300), USER_ID));
+        validateRootCause(ConstraintViolationException.class, () -> service.create(new RealEstate(null, "ab", 0), USER_ID));
     }
 }
