@@ -1,5 +1,6 @@
 package com.timmax.realestate.repository.datajpa;
 
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -11,7 +12,6 @@ import com.timmax.realestate.model.User;
 public interface CrudUserRepository extends JpaRepository<User, Integer> {
     @Transactional
     @Modifying
-//    @Query(name = User.DELETE)
     @Query("""
         DELETE
           FROM User u
@@ -21,9 +21,10 @@ public interface CrudUserRepository extends JpaRepository<User, Integer> {
 
     User getByEmail(String email);
 
+    @EntityGraph(attributePaths = {"realEstates", "roles"})
     @Query("""
         SELECT u
-          FROM User u LEFT JOIN FETCH u.realEstates
+          FROM User u
          WHERE u.id = ?1
     """)
     User getWithRealEstates(int id);

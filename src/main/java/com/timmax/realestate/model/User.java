@@ -1,5 +1,6 @@
 package com.timmax.realestate.model;
 
+import org.hibernate.annotations.BatchSize;
 import org.springframework.util.CollectionUtils;
 
 import javax.persistence.*;
@@ -24,7 +25,7 @@ import java.util.*;
         ),
         @NamedQuery(name = User.GET_ALL_SORTED_BY_EMAIL, query = """
                 SELECT u
-                  FROM User u LEFT JOIN FETCH u.roles
+                  FROM User u
                  ORDER BY u.name, u.email
                 """
         ),
@@ -60,6 +61,8 @@ public class User extends AbstractNamedEntity {
             uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "role"}, name = "uk_user_role")})
     @Column(name = "role")
     @ElementCollection(fetch = FetchType.EAGER)
+    //    @Fetch(FetchMode.SUBSELECT)
+    @BatchSize(size = 200)
     private Set<Role> roles;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
