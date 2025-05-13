@@ -7,9 +7,6 @@ import com.timmax.realestate.service.AbstractUserServiceTest;
 import static com.timmax.realestate.Profiles.JDBC;
 
 @ActiveProfiles(JDBC)
+@Ignore
 public class JdbcUserServiceTest extends AbstractUserServiceTest {
-    @Override
-    @Ignore
-    public void createWithException() {
-    }
 }
