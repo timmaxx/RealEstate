@@ -28,7 +28,8 @@
         Если в разных файлах свойств будут встречаться одинаковые свойства с разными значениями,
         то результирующим значением будет то, которое встретилось последним.
         -->
-        <context:property-placeholder location="classpath:db/common.properties, classpath:db/hsqldb.properties" system-properties-mode="OVERRIDE"/>
+        <context:property-placeholder location="classpath:db/common.properties, classpath:db/hsqldb.properties"
+                                      system-properties-mode="OVERRIDE"/>
     </beans>
 
     <beans profile="postgres">
@@ -41,7 +42,8 @@
             <property name="staticMethod" value="org.slf4j.bridge.SLF4JBridgeHandler.install"/>
         </bean>
 
-        <context:property-placeholder location="classpath:db/common.properties, classpath:db/postgres.properties" system-properties-mode="OVERRIDE"/>
+        <context:property-placeholder location="classpath:db/common.properties, classpath:db/postgres.properties"
+                                      system-properties-mode="OVERRIDE"/>
     </beans>
 
     <beans profile="postgres, hsqldb">
@@ -70,7 +72,7 @@
         <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
               p:dataSource-ref="dataSource"
               p:packagesToScan="com.timmax.**.model">
-              <!--p:persistenceUnitName="persistenceUnit">-->
+            <!--p:persistenceUnitName="persistenceUnit">-->
 
             <property name="jpaPropertyMap">
                 <map>
@@ -81,10 +83,20 @@
                     <!--<entry key="#{T(org.hibernate.cfg.AvailableSettings).HBM2DDL_AUTO}" value="${hibernate.hbm2ddl.auto}"/>-->
 
                     <!--https://github.com/hibernate/hibernate-orm/blob/master/documentation/src/main/asciidoc/userguide/chapters/caching/Caching.adoc#caching-provider-jcache-->
-                    <entry key="#{T(org.hibernate.cfg.AvailableSettings).CACHE_REGION_FACTORY}" value="org.hibernate.cache.jcache.internal.JCacheRegionFactory"/>
-                    <entry key="#{T(org.hibernate.cache.jcache.ConfigSettings).PROVIDER}" value="org.ehcache.jsr107.EhcacheCachingProvider"/>
+                    <entry key="#{T(org.hibernate.cfg.AvailableSettings).CACHE_REGION_FACTORY}"
+                           value="org.hibernate.cache.jcache.internal.JCacheRegionFactory"/>
+                    <entry key="#{T(org.hibernate.cache.jcache.ConfigSettings).PROVIDER}"
+                           value="org.ehcache.jsr107.EhcacheCachingProvider"/>
                     <entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_SECOND_LEVEL_CACHE}" value="true"/>
-                    <entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_QUERY_CACHE}" value="false"/> <!--default-->
+                    <entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_QUERY_CACHE}"
+                           value="false"/> <!--default-->
+                    <!-- Generation sql-scripts from java entities: -->
+                    <!--
+                                                            <entry key="#{T(org.hibernate.cfg.AvailableSettings).HBM2DDL_SCRIPTS_ACTION}" value="drop-and-create"/>
+                                                            <entry key="#{T(org.hibernate.cfg.AvailableSettings).HBM2DDL_SCRIPTS_CREATE_TARGET}" value="${REALESTATE_ROOT}/config/ddl/create.ddl"/>
+                                                            <entry key="#{T(org.hibernate.cfg.AvailableSettings).HBM2DDL_SCRIPTS_DROP_TARGET}" value="${REALESTATE_ROOT}/config/ddl/drop.ddl"/>
+                                                            <entry key="#{T(org.hibernate.cfg.AvailableSettings).HBM2DDL_AUTO}" value="create"/>
+                    -->
                 </map>
             </property>
 
