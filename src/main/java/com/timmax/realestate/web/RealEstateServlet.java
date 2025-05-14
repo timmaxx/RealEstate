@@ -1,8 +1,8 @@
 package com.timmax.realestate.web;
 
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.util.StringUtils;
-import com.timmax.realestate.Profiles;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 import com.timmax.realestate.model.RealEstate;
 import com.timmax.realestate.web.realEstate.RealEstateRestController;
 
@@ -16,23 +16,12 @@ import java.util.Objects;
 import static com.timmax.realestate.util.Util.parseFloatOrNull;
 
 public class RealEstateServlet extends HttpServlet {
-
-    private ClassPathXmlApplicationContext springContext;
     private RealEstateRestController realEstateController;
 
     @Override
     public void init() {
-        springContext = new ClassPathXmlApplicationContext(new String[]{"spring/spring-app.xml", "spring/spring-db.xml"}, false);
-//        springContext.setConfigLocations("spring/spring-app.xml", "spring/spring-db.xml");
-        springContext.getEnvironment().setActiveProfiles(Profiles.getActiveDbProfile(), Profiles.REPOSITORY_IMPLEMENTATION);
-        springContext.refresh();
+        WebApplicationContext springContext = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
         realEstateController = springContext.getBean(RealEstateRestController.class);
-    }
-
-    @Override
-    public void destroy() {
-        springContext.close();
-        super.destroy();
     }
 
     @Override
