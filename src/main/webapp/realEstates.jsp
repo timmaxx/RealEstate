@@ -19,11 +19,11 @@
         <input type="hidden" name="action" value="filter">
         <dl>
             <dt>From Square (inclusive):</dt>
-            <dd><input type="float" name="startSquare" value="${param.startSquare}"></dd>
+            <dd><input type="number" name="startSquare" value="${param.startSquare}" step="0.01"></dd>
         </dl>
         <dl>
             <dt>To Square (exclusive):</dt>
-            <dd><input type="float" name="endSquare" value="${param.endSquare}"></dd>
+            <dd><input type="number" name="endSquare" value="${param.endSquare}" step="0.01"></dd>
         </dl>
         <button type="submit">Filter</button>
     </form>
