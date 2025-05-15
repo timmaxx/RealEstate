@@ -12,7 +12,7 @@
 
 <body>
 <section>
-    <h3><a href="index.html">Home</a></h3>
+    <h3><a href="index.jsp">Home</a></h3>
     <hr/>
     <h2>Real estates</h2>
     <form method="get" action="realEstates">
