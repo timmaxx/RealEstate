@@ -15,12 +15,12 @@
   <form method="post" action="realEstates">
     <input type="hidden" name="id" value="${realEstate.id}">
     <dl>
-      <dt>Address:</dt>
-      <dd><input type="text" value="${realEstate.address}" size=40 name="address" required></dd>
+      <dt><label for="address">Address:</label></dt>
+      <dd><input type="text" id="address" value="${realEstate.address}" size=40 name="address" required></dd>
     </dl>
     <dl>
-      <dt>Square:</dt>
-      <dd><input type="number" value="${realEstate.square}" name="square" step="0.01" required></dd>
+      <dt><label for="square">Square:</label></dt>
+      <dd><input type="number" id="square" value="${realEstate.square}" name="square" step="0.01" required></dd>
     </dl>
     <button type="submit">Save</button>
     <button onclick="window.history.back()" type="button">Cancel</button>

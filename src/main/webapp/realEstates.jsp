@@ -18,12 +18,12 @@
     <form method="get" action="realEstates">
         <input type="hidden" name="action" value="filter">
         <dl>
-            <dt>From Square (inclusive):</dt>
-            <dd><input type="number" name="startSquare" value="${param.startSquare}" step="0.01"></dd>
+            <dt><label for="startSquare">From Square (inclusive):</label></dt>
+            <dd><input type="number" id="startSquare" name="startSquare" value="${param.startSquare}" step="0.01"></dd>
         </dl>
         <dl>
-            <dt>To Square (exclusive):</dt>
-            <dd><input type="number" name="endSquare" value="${param.endSquare}" step="0.01"></dd>
+            <dt><label for="endSquare">To Square (exclusive):</label></dt>
+            <dd><input type="number" id="endSquare" name="endSquare" value="${param.endSquare}" step="0.01"></dd>
         </dl>
         <button type="submit">Filter</button>
     </form>
