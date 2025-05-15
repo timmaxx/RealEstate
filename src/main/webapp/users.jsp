@@ -12,7 +12,7 @@
 <section>
     <h3><fmt:message key="user.title"/></h3>
 
-    <table border="1" cellpadding="8" cellspacing="0">
+    <table>
         <thead>
         <tr>
             <th><fmt:message key="user.name"/></th>

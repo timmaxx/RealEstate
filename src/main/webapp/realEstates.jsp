@@ -31,7 +31,7 @@
 
     <a href="realEstates?action=create">Add Real estate</a>
     <br><br>
-    <table border="1" cellpadding="8" cellspacing="0">
+    <table>
         <thead>
         <tr>
             <th>Address</th>
