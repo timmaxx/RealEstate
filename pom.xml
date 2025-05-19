@@ -64,6 +64,70 @@
                     <argLine>-Dfile.encoding=UTF-8</argLine>
                 </configuration>
             </plugin>
+
+            <!-- http://stackoverflow.com/questions/4305935/is-it-possible-to-supply-tomcat6s-context-xml-file-via-the-maven-cargo-plugin#4417945 -->
+            <!-- https://codehaus-cargo.github.io/cargo/Tomcat+9.x.html -->
+            <plugin>
+                <groupId>org.codehaus.cargo</groupId>
+                <artifactId>cargo-maven3-plugin</artifactId>
+                <version>1.10.18</version>
+                <configuration>
+                    <container>
+                        <containerId>tomcat9x</containerId>
+                        <systemProperties>
+                            <file.encoding>UTF-8</file.encoding>
+                            <spring.profiles.active>tomcat,datajpa</spring.profiles.active>
+                        </systemProperties>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.postgresql</groupId>
+                                <artifactId>postgresql</artifactId>
+                            </dependency>
+                        </dependencies>
+                    </container>
+                    <configuration>
+                        <configfiles>
+                            <configfile>
+                                <file>src/main/resources/tomcat/context.xml</file>
+                                <todir>conf/Catalina/localhost/</todir>
+                                <tofile>${project.build.finalName}.xml</tofile>
+                            </configfile>
+                        </configfiles>
+                        <!--
+                            Немного о запуске TomCat:
+                            - Штатно TomCat ставится в какой-то каталог, например:
+                              C:\Program Files\apache-tomcat\apache-tomcat-9.0.68
+                              Для этого и последующих вариантов в нём создаётся подкаталог conf.
+                            - при запуске из сконфигурированного в IDE варианта
+                              генерируется каталог:
+                              %USERPROFILE%\AppData\Local\JetBrains\IntelliJIdea2025.1\tomcat\
+                            - при запуске при помощи cargo-maven3-plugin, например, так:
+                              mvn clean package -DskipTests=true org.codehaus.cargo:cargo-maven3-plugin:1.9.5:run
+                              генерируется каталог, внутри этого каталога:
+                              %КаталогПроекта%\target\cargo\installs\tomcat-9.0.48\apache-tomcat-9.0.48
+                              в котором уже и указываются параметры запуска.
+                        -->
+                        <!--
+                            Если нужно запустить cargo-maven3-plugin с определённым номером http порта
+                            (это аналог указания номера порта, который в IDEA указывается в конфигурациях запуска).
+                        -->
+                        <properties>
+                            <cargo.servlet.port>8082</cargo.servlet.port>
+                        </properties>
+                    </configuration>
+                    <deployables>
+                        <deployable>
+                            <groupId>com.timmax</groupId>
+                            <artifactId>real-estate</artifactId>
+                            <type>war</type>
+                            <properties>
+                                <context>${project.build.finalName}</context>
+                            </properties>
+                        </deployable>
+                    </deployables>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 
