@@ -55,6 +55,7 @@ Using CATALINA_BASE:   "C:\Users\Maksim\AppData\Local\JetBrains\IntelliJIdea2022
     с уровнем логирования debug и выше будут попадать. А, например, с уровнем trace, в лог не попадут.
     -->
     <logger name="com.timmax.realestate" level="debug"/>
+    <logger name="org.springframework.web.servlet" level="debug"/>
 
     <root level="info">
         <appender-ref ref="file"/>
