@@ -2,16 +2,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html>
-<head>
-  <title>Real estate</title>
-  <link rel="stylesheet" href="css/style.css">
-</head>
+<jsp:include page="headTag.jsp"/>
 <body>
+<jsp:include page="bodyHeader.jsp"/>
+
 <section>
-  <h3><a href="index.jsp">Home</a></h3>
-  <hr>
-  <h2>${param.action == 'create' ? 'Create real estate' : 'Edit real estate'}</h2>
   <jsp:useBean id="realEstate" type="com.timmax.realestate.model.RealEstate" scope="request"/>
+  <h3>${realEstate.isNew() ? 'Create real estate' : 'Edit real estate'}</h3>
+  <hr>
   <form method="post" action="realEstates">
     <input type="hidden" name="id" value="${realEstate.id}">
     <dl>
@@ -23,8 +21,9 @@
       <dd><input type="number" id="square" value="${realEstate.square}" name="square" step="0.01" required></dd>
     </dl>
     <button type="submit">Save</button>
-    <button onclick="window.history.back()" type="button">Cancel</button>
+    <button type="button" onclick="window.history.back()">Cancel</button>
   </form>
 </section>
+<jsp:include page="bodyFooter.jsp"/>
 </body>
 </html>

@@ -4,19 +4,12 @@
 <%@ taglib prefix="fn" uri="http://realEstate.timmax.com/functions" %>
 <%--<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>--%>
 <html>
-
-<head>
-    <title>Real estate list</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-
+<jsp:include page="headTag.jsp"/>
 <body>
+<jsp:include page="bodyHeader.jsp"/>
 <section>
-    <h3><a href="index.jsp">Home</a></h3>
-    <hr/>
     <h2>Real estates</h2>
-    <form method="get" action="realEstates">
-        <input type="hidden" name="action" value="filter">
+    <form method="get" action="realEstates/filter">
         <dl>
             <dt><label for="startSquare">From Square (inclusive):</label></dt>
             <dd><input type="number" id="startSquare" name="startSquare" value="${param.startSquare}" step="0.01"></dd>
@@ -29,8 +22,8 @@
     </form>
     <hr/>
 
-    <a href="realEstates?action=create">Add Real estate</a>
-    <br><br>
+    <a href="realEstates/create">Add Real estate</a>
+    <hr>
     <table>
         <thead>
         <tr>
@@ -45,11 +38,12 @@
             <tr>
                 <td>${realEstate.address}</td>
                 <td>${realEstate.square}</td>
-                <td><a href="realEstates?action=update&id=${realEstate.id}">Update</a></td>
-                <td><a href="realEstates?action=delete&id=${realEstate.id}">Delete</a></td>
+                <td><a href="realEstates/update?id=${realEstate.id}">Update</a></td>
+                <td><a href="realEstates/delete?id=${realEstate.id}">Delete</a></td>
             </tr>
         </c:forEach>
     </table>
 </section>
+<jsp:include page="bodyFooter.jsp"/>
 </body>
 </html>

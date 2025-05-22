@@ -8,7 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.timmax.realestate.service.RealEstateService;
 import com.timmax.realestate.service.UserService;
+import com.timmax.realestate.util.RealEstateUtil;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,6 +20,9 @@ public class RootController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private RealEstateService realEstateService;
 
     @GetMapping("/")
     public String root() {
@@ -38,5 +43,19 @@ public class RootController {
         log.info("setUser {}", userId);
         SecurityUtil.setAuthUserId(userId);
         return "redirect:realEstates";
+    }
+
+    @GetMapping("/realEstates")
+    public String getRealEstates(Model model) {
+        log.info("realEstates");
+        model.addAttribute(
+                "realEstates",
+                RealEstateUtil.getDtos(
+                        realEstateService.getAll(
+                            SecurityUtil.authUserId()
+                        )
+                )
+        );
+        return "realEstates";
     }
 }
