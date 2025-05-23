@@ -37,4 +37,30 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
+    <!--
+        Настройки фильтра ниже добавляет в request и в response UTF-8.
+        Без этого в браузере если пытаться вводить текст на русском, то после сохранения он получается корявым.
+        А с этими настройками - нормально.
+        Хотел воспроизвести эту ситуацию в тестах (см. RealEstateTestData :: public static RealEstate getNew()),
+        но не получилось - нужен тест, который делает http-запрос.
+        ToDo: Позднее реализовать тест и попробовать закомментировать блок ниже для проверки.
+    -->
+    <filter>
+        <filter-name>encodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>forceEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>encodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <!-- Конец настроек фильтра для UTF-8 -->
+
 </web-app>

@@ -29,7 +29,9 @@ public class RealEstateTestData {
             );
 
     public static RealEstate getNew() {
-        return new RealEstate(null, "Address", 1);
+        //  ToDo: См. web.xml вблизи с <filter-name>encodingFilter</filter-name>
+        // return new RealEstate(null, "Address", 1);
+        return new RealEstate(null, "Адрес", 1);
     }
 
     public static RealEstate getUpdated() {
