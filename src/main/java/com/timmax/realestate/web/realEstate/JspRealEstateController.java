@@ -19,7 +19,7 @@ public class JspRealEstateController extends AbstractRealEstateController {
     @GetMapping("/delete")
     public String delete(HttpServletRequest request) {
         super.delete(getId(request));
-        return "redirect:realEstates";
+        return "redirect:/realEstates";
     }
 
     @GetMapping("/update")
@@ -48,7 +48,7 @@ public class JspRealEstateController extends AbstractRealEstateController {
         } else {
             super.update(realEstate, getId(request));
         }
-        return "redirect:realEstates";
+        return "redirect:/realEstates";
     }
 
     @GetMapping("/filter")
