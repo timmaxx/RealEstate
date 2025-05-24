@@ -8,7 +8,6 @@ import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.dao.DataAccessException;
 
-import com.timmax.realestate.UserTestData;
 import com.timmax.realestate.model.Role;
 import com.timmax.realestate.model.User;
 import com.timmax.realestate.repository.JpaUtil;
@@ -81,8 +80,8 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
 
     @Test
     public void get() {
-        User user = service.get(USER_ID);
-        USER_MATCHER.assertMatch(user, UserTestData.user);
+        User user = service.get(ADMIN_ID);
+        USER_MATCHER.assertMatch(user, admin);
     }
 
     @Test

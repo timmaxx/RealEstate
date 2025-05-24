@@ -26,7 +26,7 @@ import java.util.*;
                 """
         ),
         @NamedQuery(name = User.GET_BY_EMAIL, query = """
-                SELECT u
+                SELECT DISTINCT u
                   FROM User u LEFT JOIN FETCH u.roles
                  WHERE u.email = ?1
                 """

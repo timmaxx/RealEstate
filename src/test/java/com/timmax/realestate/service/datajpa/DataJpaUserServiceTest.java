@@ -16,14 +16,14 @@ import static com.timmax.realestate.UserTestData.*;
 @ActiveProfiles(DATAJPA)
 public class DataJpaUserServiceTest extends AbstractUserServiceTest {
     @Test
-    public void getWithMeals() {
-        User user = service.getWithRealEstates(USER_ID);
-        USER_MATCHER.assertMatch(user, UserTestData.user);
-        REAL_ESTATE_MATCHER.assertMatch(user.getRealEstates(), RealEstateTestData.realEstates);
+    public void getWithRealEstates() {
+        User admin = service.getWithRealEstates(ADMIN_ID);
+        USER_MATCHER.assertMatch(admin, UserTestData.admin);
+        REAL_ESTATE_MATCHER.assertMatch(admin.getRealEstates(), RealEstateTestData.adminRealEstate2, RealEstateTestData.adminRealEstate1);
     }
 
     @Test
-    public void getWithMealsNotFound() {
+    public void getWithRealEstatesNotFound() {
         Assert.assertThrows(NotFoundException.class,
                 () -> service.getWithRealEstates(NOT_FOUND));
     }
