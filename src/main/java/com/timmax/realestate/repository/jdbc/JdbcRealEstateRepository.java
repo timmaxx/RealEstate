@@ -1,6 +1,5 @@
 package com.timmax.realestate.repository.jdbc;
 
-import org.springframework.context.annotation.Profile;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -9,12 +8,14 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import com.timmax.realestate.model.RealEstate;
 import com.timmax.realestate.repository.RealEstateRepository;
 
 import java.util.List;
 
 @Repository
+@Transactional(readOnly = true)
 public class JdbcRealEstateRepository implements RealEstateRepository {
     private static final RowMapper<RealEstate> ROW_MAPPER = BeanPropertyRowMapper.newInstance(RealEstate.class);
 
@@ -34,6 +35,7 @@ public class JdbcRealEstateRepository implements RealEstateRepository {
     }
 
     @Override
+    @Transactional
     public RealEstate save(RealEstate realEstate, int userId) {
         MapSqlParameterSource map = new MapSqlParameterSource()
                 .addValue("id", realEstate.getId())
@@ -67,6 +69,7 @@ public class JdbcRealEstateRepository implements RealEstateRepository {
     }
 
     @Override
+    @Transactional
     public boolean delete(int id, int userId) {
         return jdbcTemplate.update("""
                         DELETE
