@@ -30,8 +30,6 @@ import javax.validation.constraints.Size;
                    AND re.square < :endSquare
                  ORDER BY re.address
                 """),
-//        @NamedQuery(name = Meal.UPDATE, query = "UPDATE Meal m SET m.dateTime = :datetime, m.calories= :calories," +
-//                "m.description=:desc where m.id=:id and m.user.id=:userId")
 })
 @Entity
 @Table(

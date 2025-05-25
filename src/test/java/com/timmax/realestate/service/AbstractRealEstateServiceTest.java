@@ -40,10 +40,10 @@ public abstract class AbstractRealEstateServiceTest extends AbstractServiceTest 
     public void create() {
         RealEstate created = service.create(getNew(), USER_ID);
         int newId = created.id();
-        RealEstate newMeal = getNew();
-        newMeal.setId(newId);
-        REAL_ESTATE_MATCHER.assertMatch(created, newMeal);
-        REAL_ESTATE_MATCHER.assertMatch(service.get(newId, USER_ID), newMeal);
+        RealEstate newRealEstate = getNew();
+        newRealEstate.setId(newId);
+        REAL_ESTATE_MATCHER.assertMatch(created, newRealEstate);
+        REAL_ESTATE_MATCHER.assertMatch(service.get(newId, USER_ID), newRealEstate);
     }
 
     @Test

@@ -16,9 +16,9 @@ import static com.timmax.realestate.UserTestData.*;
 public class DataJpaRealEstateServiceTest extends AbstractRealEstateServiceTest {
     @Test
     public void getWithUser() {
-        RealEstate adminMeal = service.getWithUser(ADMIN_REAL_ESTATE_ID, ADMIN_ID);
-        REAL_ESTATE_MATCHER.assertMatch(adminMeal, adminRealEstate1);
-        USER_MATCHER.assertMatch(adminMeal.getUser(), admin);
+        RealEstate adminRealEstate = service.getWithUser(ADMIN_REAL_ESTATE_ID, ADMIN_ID);
+        REAL_ESTATE_MATCHER.assertMatch(adminRealEstate, adminRealEstate1);
+        USER_MATCHER.assertMatch(adminRealEstate.getUser(), admin);
     }
 
     @Test
