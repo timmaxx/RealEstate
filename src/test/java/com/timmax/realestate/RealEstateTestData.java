@@ -28,6 +28,11 @@ public class RealEstateTestData {
                     realEstate1, realEstate2, realEstate3, realEstate4, realEstate5, realEstate6, realEstate7
             );
 
+    public static final List<RealEstate> adminRealEstates =
+            List.of(
+                    adminRealEstate1, adminRealEstate2
+            );
+
     public static RealEstate getNew() {
         //  ToDo: См. web.xml вблизи с <filter-name>encodingFilter</filter-name>
         // return new RealEstate(null, "Address", 1);

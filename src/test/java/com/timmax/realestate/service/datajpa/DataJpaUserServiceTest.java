@@ -16,10 +16,31 @@ import static com.timmax.realestate.UserTestData.*;
 @ActiveProfiles(DATAJPA)
 public class DataJpaUserServiceTest extends AbstractUserServiceTest {
     @Test
-    public void getWithRealEstates() {
+    public void getWithAdminRealEstates() {
         User admin = service.getWithRealEstates(ADMIN_ID);
         USER_MATCHER.assertMatch(admin, UserTestData.admin);
-        REAL_ESTATE_MATCHER.assertMatch(admin.getRealEstates(), RealEstateTestData.adminRealEstate2, RealEstateTestData.adminRealEstate1);
+        REAL_ESTATE_MATCHER.assertMatch(admin.getRealEstates(), RealEstateTestData.adminRealEstates);
+
+/*
+        //  ToDo:   Нужно привязать тестовые объекты RealEstate к соответствующим пользователям.
+        //          Если раскомментировать, то тест завалится, т.к. тестовые объекты RealEstate не привязаны к пользователю admin
+        System.out.println("  UserTestData.admin.getRealEstates() = " + UserTestData.admin.getRealEstates());
+        REAL_ESTATE_MATCHER.assertMatch(UserTestData.admin.getRealEstates(), RealEstateTestData.adminRealEstates);
+*/
+    }
+
+    @Test
+    public void getWithUserRealEstates() {
+        User user = service.getWithRealEstates(USER_ID);
+        USER_MATCHER.assertMatch(user, UserTestData.user);
+        REAL_ESTATE_MATCHER.assertMatch(user.getRealEstates(), RealEstateTestData.realEstates);
+
+/*
+        //  ToDo:   Нужно привязать тестовые объекты RealEstate к соответствующим пользователям.
+        //          Если раскомментировать, то тест завалится, т.к. тестовые объекты RealEstate не привязаны к пользователю user
+        System.out.println("  UserTestData.user.getRealEstates() = " + UserTestData.user.getRealEstates());
+        REAL_ESTATE_MATCHER.assertMatch(UserTestData.user.getRealEstates(), RealEstateTestData.realEstates);
+*/
     }
 
     @Test

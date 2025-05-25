@@ -104,7 +104,9 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
 
     @Test
     public void getAll() {
+        //  Получим список пользователей фактических
         List<User> all = service.getAll();
+        //  Порядок перечисления ожидаемых пользователей должен соответствовать порядку в списке фактических.
         USER_MATCHER.assertMatch(all, admin, guest, user);
     }
 
