@@ -9,8 +9,10 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.timmax.realestate.model.RealEstate;
 import com.timmax.realestate.repository.RealEstateRepository;
+import com.timmax.realestate.util.ValidationUtil;
 
 import java.util.List;
 
@@ -37,6 +39,8 @@ public class JdbcRealEstateRepository implements RealEstateRepository {
     @Override
     @Transactional
     public RealEstate save(RealEstate realEstate, int userId) {
+        ValidationUtil.validate(realEstate);
+
         MapSqlParameterSource map = new MapSqlParameterSource()
                 .addValue("id", realEstate.getId())
                 .addValue("address", realEstate.getAddress())

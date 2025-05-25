@@ -14,6 +14,7 @@ import org.springframework.util.CollectionUtils;
 import com.timmax.realestate.model.Role;
 import com.timmax.realestate.model.User;
 import com.timmax.realestate.repository.UserRepository;
+import com.timmax.realestate.util.ValidationUtil;
 
 import java.util.*;
 
@@ -42,6 +43,7 @@ public class JdbcUserRepository implements UserRepository {
     @Override
     @Transactional
     public User save(User user) {
+        ValidationUtil.validate(user);
         BeanPropertySqlParameterSource parameterSource = new BeanPropertySqlParameterSource(user);
 
         if (user.isNew()) {
