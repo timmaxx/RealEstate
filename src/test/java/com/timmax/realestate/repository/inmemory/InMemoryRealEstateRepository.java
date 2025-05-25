@@ -22,10 +22,17 @@ public class InMemoryRealEstateRepository implements RealEstateRepository {
     // Map  userId -> realEstateRepository
     private final Map<Integer, InMemoryBaseRepository<RealEstate>> usersRealEstatesMap = new ConcurrentHashMap<>();
 
+    //  ToDo:   Эту инициализацию нужно убрать из реализации репозитория.
+    //          Ведь инициализация СУБД-репозитория делается через populateDB.sql
+    //          и в реализации самих репозиториев нет инициализации.
     {
         var userRealEstates = new InMemoryBaseRepository<RealEstate>();
         RealEstateTestData.realEstates.forEach(userRealEstates::put);
         usersRealEstatesMap.put(UserTestData.USER_ID, userRealEstates);
+
+        var adminRealEstates = new InMemoryBaseRepository<RealEstate>();
+        RealEstateTestData.realEstates.forEach(adminRealEstates::put);
+        usersRealEstatesMap.put(UserTestData.ADMIN_ID, adminRealEstates);
     }
 
     @Override
