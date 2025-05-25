@@ -31,7 +31,7 @@ import java.util.*;
                  WHERE u.email = ?1
                 """
         ),
-        @NamedQuery(name = User.GET_ALL_SORTED_BY_EMAIL, query = """
+        @NamedQuery(name = User.GET_ALL_SORTED_BY_NAME_EMAIL, query = """
                 SELECT u
                   FROM User u
                  ORDER BY u.name, u.email
@@ -44,7 +44,7 @@ public class User extends AbstractNamedEntity {
 
     public static final String DELETE_BY_ID = "User.deleteById";
     public static final String GET_BY_EMAIL = "User.getByEmail";
-    public static final String GET_ALL_SORTED_BY_EMAIL = "User.getAllSortedByEmail";
+    public static final String GET_ALL_SORTED_BY_NAME_EMAIL = "User.getAllSortedByNameEmail";
 
     @Column(name = "email", nullable = false, unique = true)
     @Email
