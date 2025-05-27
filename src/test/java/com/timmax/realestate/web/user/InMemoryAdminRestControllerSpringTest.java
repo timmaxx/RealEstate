@@ -1,20 +1,17 @@
 package com.timmax.realestate.web.user;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import com.timmax.realestate.repository.inmemory.InMemoryUserRepository;
 import com.timmax.realestate.util.exception.NotFoundException;
 
 import static com.timmax.realestate.UserTestData.NOT_FOUND;
 import static com.timmax.realestate.UserTestData.USER_ID;
 
-@ContextConfiguration({"classpath:spring/inmemory.xml"})
-@RunWith(SpringRunner.class)
+@SpringJUnitConfig(locations = {"classpath:spring/inmemory.xml"})
 public class InMemoryAdminRestControllerSpringTest {
 
     @Autowired
@@ -23,19 +20,19 @@ public class InMemoryAdminRestControllerSpringTest {
     @Autowired
     private InMemoryUserRepository repository;
 
-    @Before
-    public void setup() {
+    @BeforeEach
+    void setup() {
         repository.init();
     }
 
     @Test
-    public void delete() {
+    void delete() {
         controller.delete(USER_ID);
-        Assert.assertNull(repository.get(USER_ID));
+        Assertions.assertNull(repository.get(USER_ID));
     }
 
     @Test
-    public void deleteNotFound() {
-        Assert.assertThrows(NotFoundException.class, () -> controller.delete(NOT_FOUND));
+    void deleteNotFound() {
+        Assertions.assertThrows(NotFoundException.class, () -> controller.delete(NOT_FOUND));
     }
 }

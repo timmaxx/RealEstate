@@ -6,5 +6,5 @@ import com.timmax.realestate.service.AbstractUserServiceTest;
 import static com.timmax.realestate.Profiles.JPA;
 
 @ActiveProfiles(JPA)
-public class JpaUserServiceTest extends AbstractUserServiceTest {
+class JpaUserServiceTest extends AbstractUserServiceTest {
 }

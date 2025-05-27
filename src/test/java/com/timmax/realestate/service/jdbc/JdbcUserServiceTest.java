@@ -6,5 +6,5 @@ import com.timmax.realestate.service.AbstractUserServiceTest;
 import static com.timmax.realestate.Profiles.JDBC;
 
 @ActiveProfiles(JDBC)
-public class JdbcUserServiceTest extends AbstractUserServiceTest {
+class JdbcUserServiceTest extends AbstractUserServiceTest {
 }

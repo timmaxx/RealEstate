@@ -1,7 +1,7 @@
 package com.timmax.realestate.service.datajpa;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.test.context.ActiveProfiles;
 import com.timmax.realestate.RealEstateTestData;
 import com.timmax.realestate.UserTestData;
@@ -14,9 +14,9 @@ import static com.timmax.realestate.Profiles.DATAJPA;
 import static com.timmax.realestate.UserTestData.*;
 
 @ActiveProfiles(DATAJPA)
-public class DataJpaUserServiceTest extends AbstractUserServiceTest {
+class DataJpaUserServiceTest extends AbstractUserServiceTest {
     @Test
-    public void getWithAdminRealEstates() {
+    void getWithAdminRealEstates() {
         User admin = service.getWithRealEstates(ADMIN_ID);
         USER_MATCHER.assertMatch(admin, UserTestData.admin);
         REAL_ESTATE_MATCHER.assertMatch(admin.getRealEstates(), RealEstateTestData.adminRealEstates);
@@ -30,7 +30,7 @@ public class DataJpaUserServiceTest extends AbstractUserServiceTest {
     }
 
     @Test
-    public void getWithUserRealEstates() {
+    void getWithUserRealEstates() {
         User user = service.getWithRealEstates(USER_ID);
         USER_MATCHER.assertMatch(user, UserTestData.user);
         REAL_ESTATE_MATCHER.assertMatch(user.getRealEstates(), RealEstateTestData.realEstates);
@@ -45,7 +45,7 @@ public class DataJpaUserServiceTest extends AbstractUserServiceTest {
 
     @Test
     public void getWithRealEstatesNotFound() {
-        Assert.assertThrows(NotFoundException.class,
+        Assertions.assertThrows(NotFoundException.class,
                 () -> service.getWithRealEstates(NOT_FOUND));
     }
 }
