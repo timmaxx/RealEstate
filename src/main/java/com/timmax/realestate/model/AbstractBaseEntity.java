@@ -1,24 +1,15 @@
 package com.timmax.realestate.model;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import org.springframework.data.domain.Persistable;
 import org.springframework.util.Assert;
 
 import javax.persistence.*;
 
-import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.ANY;
-import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE;
 import static org.hibernate.proxy.HibernateProxyHelper.getClassWithoutInitializingProxy;
 
 @MappedSuperclass
 // http://stackoverflow.com/questions/594597/hibernate-annotations-which-is-better-field-or-property-access
 @Access(AccessType.FIELD)
-@JsonAutoDetect(
-        fieldVisibility = ANY,      // jackson видит все поля
-        getterVisibility = NONE,    // ... но не видит геттеров
-        isGetterVisibility = NONE,  // ... не видит is-геттеров (т.е. начинающихся с is... и возвращающих boolean) (и тогда значение метода isNew не будет сериализоваться)
-        setterVisibility = NONE     // ... не видит сеттеров
-)
 public abstract class AbstractBaseEntity implements Persistable<Integer> {
     public static final int START_SEQ = 100000;
 
