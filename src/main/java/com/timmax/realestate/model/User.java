@@ -4,6 +4,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.util.CollectionUtils;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
@@ -79,6 +80,16 @@ public class User extends AbstractNamedEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")//, cascade = CascadeType.REMOVE, orphanRemoval = true)
     @OrderBy("address")
     @OnDelete(action = OnDeleteAction.CASCADE) //https://stackoverflow.com/a/44988100/548473
+    //  С этой аннотацией поле не будет поступать в JSON.
+    //  Это сделано, т.к. выше есть @OneToMany(fetch = FetchType.LAZY ...), и тогда, при считывании пользователя,
+    //  сразу не будет считываться список realEstates и что в т.ч. транзакция будет закрыта после считывания пользователя.
+    //  Если-же не применять @JsonIgnore,
+    //  то когда фреймворк позже попытается считать список realEstates возникнет LazyInitializationException.
+    //  Ну и на всякий случай напомню: если вверху сделать @OneToMany(fetch = FetchType.EAGER ...),
+    //  тогда, при считывании пользователя, будет попытка чтения списка realEstates, а у каждого realEstates есть user,
+    //  что приведёт к зацикливанию.
+    //  Поэтому применим @JsonIgnore.
+    @JsonIgnore
     private List<RealEstate> realEstates;
 
     public User() {
