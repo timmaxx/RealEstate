@@ -7,7 +7,7 @@ import java.util.List;
 import static com.timmax.realestate.model.AbstractBaseEntity.START_SEQ;
 
 public class RealEstateTestData {
-    public static final MatcherFactory.Matcher<RealEstate> REAL_ESTATE_MATCHER = MatcherFactory.usingIgnoringFieldsComparator("user");
+    public static final MatcherFactory.Matcher<RealEstate> REAL_ESTATE_MATCHER = MatcherFactory.usingIgnoringFieldsComparator(RealEstate.class, "user");
 
     public static final int NOT_FOUND = 10;
     public static final int REAL_ESTATE1_ID = START_SEQ + 3;

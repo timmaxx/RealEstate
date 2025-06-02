@@ -9,9 +9,7 @@ import com.timmax.realestate.web.AbstractControllerTest;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static com.timmax.realestate.UserTestData.ADMIN_ID;
-import static com.timmax.realestate.UserTestData.admin;
-import static com.timmax.realestate.web.json.JsonUtil.writeIgnoreProps;
+import static com.timmax.realestate.UserTestData.*;
 
 class AdminRestControllerTest extends AbstractControllerTest {
 
@@ -24,6 +22,6 @@ class AdminRestControllerTest extends AbstractControllerTest {
                 .andDo(print())
                 // https://jira.spring.io/browse/SPR-14472
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(content().json(writeIgnoreProps(admin, "registered")));
+                .andExpect(USER_MATCHER.contentJson(admin));
     }
 }
