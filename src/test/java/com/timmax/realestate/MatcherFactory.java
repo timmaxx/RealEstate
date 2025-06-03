@@ -1,6 +1,7 @@
 package com.timmax.realestate;
 
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.ResultMatcher;
 import com.timmax.realestate.web.json.JsonUtil;
 
@@ -13,6 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Factory for creating test matchers.
  * <p>
  * Comparing actual and expected objects via AssertJ
+ * Support converting json MvcResult to objects for comparation.
  */
 public class MatcherFactory {
     public static <T> Matcher<T> usingIgnoringFieldsComparator(
@@ -45,6 +47,19 @@ public class MatcherFactory {
 
         public ResultMatcher contentJson(T expected) {
             return result -> assertMatch(JsonUtil.readValue(getContent(result), clazz), expected);
+        }
+
+        @SafeVarargs
+        public final ResultMatcher contentJson(T... expected) {
+            return contentJson(List.of(expected));
+        }
+
+        public ResultMatcher contentJson(Iterable<T> expected) {
+            return result -> assertMatch(JsonUtil.readValues(getContent(result), clazz), expected);
+        }
+
+        public T readFromJson(ResultActions action) throws UnsupportedEncodingException {
+            return JsonUtil.readValue(getContent(action.andReturn()), clazz);
         }
 
         private static String getContent(MvcResult result) throws UnsupportedEncodingException {
