@@ -1,0 +1,15 @@
+### Файл можно использовать прямо в IDEA
+
+### Для GET-запроса можно и не указывать GET
+# GET http://localhost:8080/real-estate/rest/admin/users
+http://localhost:8080/real-estate/rest/admin/users
+
+###
+POST http://localhost:8080/real-estate/rest/admin/users
+Content-Type: application/json
+
+{"name": "New3Новый",
+  "email": "new3@yandex.ru",
+  "password": "passwordNewНовый",
+  "roles": ["USER"]
+}
