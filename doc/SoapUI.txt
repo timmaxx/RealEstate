@@ -1,0 +1,25 @@
+Пробую в SoapUI вызвать REST-сервис передав ему в теле POST-запроса некий XML, содержащий кириллицу.
+При попытке сделать это получаю от сервиса ответ:
+ HTTP Status 400 – Bad Request
+ Type
+  Status Report
+ Description
+  The server cannot or will not process the request due to something that is perceived to be a client error
+  (e.g., malformed request syntax, invalid request message framing, or deceptive request routing).
+ Apache Tomcat/9.0.68
+
+
+Вопрос и решение описано здесь:
+"soapUI и кириллица в теле POST-запроса к REST-сервису"
+https://barbitoff.blogspot.com/2018/11/soapui-post-rest.html
+Там сказано сделать два шага:
+1. В bin-директории soapUI открываем файл SoapUI-x.x.x.vmoptions (где x.x.x. - номер версии soapUI)
+   и добавляем туда опцию:
+   -Dfile.encoding=UTF8
+   Перезапускаем soapUI.
+2. В поле Media Type запроса добавляем постфикс "; charset=UTF-8".
+Успех.
+Объяснение: запрос уходит с корректным Content-Type заголовком,в котором указана используемая кодировка UTF-8,
+а также с корректно закодированным в UTF-8 телом.
+
+TimMax: Однако и одного первого шага для меня оказалось достаточно для успеха.
