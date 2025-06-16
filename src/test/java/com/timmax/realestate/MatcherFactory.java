@@ -17,10 +17,28 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Support converting json MvcResult to objects for comparation.
  */
 public class MatcherFactory {
+    private MatcherFactory() {}
+
     public static <T> Matcher<T> usingIgnoringFieldsComparator(
             Class<T> clazz,
             String... fieldsToIgnore) {
         return new Matcher<>(clazz, fieldsToIgnore);
+    }
+
+    public static void assertMatchString(String actual, String expected) {
+        assertThat(actual).isEqualTo(expected);
+    }
+
+    public static ResultMatcher contentStringAsJson(String expected) {
+        return result -> assertMatchString(JsonUtil.readValue(getContent(result), String.class), expected);
+    }
+
+    public static ResultMatcher contentStringAsTextPlain(String expected) {
+        return result -> assertMatchString(getContent(result), expected);
+    }
+
+    private static String getContent(MvcResult result) throws UnsupportedEncodingException {
+        return result.getResponse().getContentAsString();
     }
 
     public static class Matcher<T> {
@@ -60,10 +78,6 @@ public class MatcherFactory {
 
         public T readFromJson(ResultActions action) throws UnsupportedEncodingException {
             return JsonUtil.readValue(getContent(action.andReturn()), clazz);
-        }
-
-        private static String getContent(MvcResult result) throws UnsupportedEncodingException {
-            return result.getResponse().getContentAsString();
         }
     }
 }
