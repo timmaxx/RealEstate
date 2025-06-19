@@ -39,7 +39,7 @@ class RootControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    void getMeals() throws Exception {
+    void getRealEstates() throws Exception {
         perform(get("/realEstates"))
                 .andDo(print())
                 .andExpect(status().isOk())
