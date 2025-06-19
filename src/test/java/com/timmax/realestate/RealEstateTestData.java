@@ -1,6 +1,7 @@
 package com.timmax.realestate;
 
 import com.timmax.realestate.model.RealEstate;
+import com.timmax.realestate.dto.RealEstateDto;
 
 import java.util.List;
 
@@ -8,6 +9,7 @@ import static com.timmax.realestate.model.AbstractBaseEntity.START_SEQ;
 
 public class RealEstateTestData {
     public static final MatcherFactory.Matcher<RealEstate> REAL_ESTATE_MATCHER = MatcherFactory.usingIgnoringFieldsComparator(RealEstate.class, "user");
+    public static MatcherFactory.Matcher<RealEstateDto> DTO_MATCHER = MatcherFactory.usingEqualsComparator(RealEstateDto.class);
 
     public static final int NOT_FOUND = 10;
     public static final int REAL_ESTATE1_ID = START_SEQ + 3;

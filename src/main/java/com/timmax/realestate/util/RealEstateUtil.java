@@ -45,7 +45,7 @@ public class RealEstateUtil {
                 .toList();
     }
 
-    private static RealEstateDto createDto(RealEstate realEstate) {
+    public static RealEstateDto createDto(RealEstate realEstate) {
         return new RealEstateDto(realEstate.getId(), realEstate.getAddress(), realEstate.getSquare());
     }
 }
