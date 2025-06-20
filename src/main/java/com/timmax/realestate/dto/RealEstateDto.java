@@ -1,5 +1,6 @@
 package com.timmax.realestate.dto;
 
+import java.beans.ConstructorProperties;
 import java.util.Objects;
 
 public class RealEstateDto {
@@ -7,6 +8,7 @@ public class RealEstateDto {
     private final String address;
     private final float square;
 
+    @ConstructorProperties({"id", "address", "square"})
     public RealEstateDto(Integer id, String address, float square) {
         this.id = id;
         this.address = address;
